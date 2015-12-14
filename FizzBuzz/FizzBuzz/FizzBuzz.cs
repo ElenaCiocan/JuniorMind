@@ -24,7 +24,12 @@ namespace FizzBuzz
         public void VerifyMultipleOfThreeAndFive()
         {
             Assert.AreEqual("FizzBuzz", CalculateMultiple(30));
+        }
 
+        [TestMethod]
+        public void VerifyIfNoneOfTheConditionsIsMeet()
+        {
+            Assert.AreEqual("NotFizzBuzz", CalculateMultiple(31));
         }
 
         string CalculateMultiple(int number)
@@ -35,7 +40,7 @@ namespace FizzBuzz
                 return "Fizz";
             if (number % 5 == 0)
                 return "Buzz";
-            return Convert.ToString(0);
+            return "NotFizzBuzz";
         }
     }
 }
