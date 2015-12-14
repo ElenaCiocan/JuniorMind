@@ -9,27 +9,32 @@ namespace Watermelon
         [TestMethod]
         public void EvenNumberOfKilograms()
         {
-            Assert.AreEqual("DA", VerifyParity(4));
+            Assert.AreEqual("DA", VerifyCondition(4));
         }
 
         [TestMethod]
         public void OddNumberOfKilograms()
         {
-            Assert.AreEqual("Nu", VerifyParity(5));
+            Assert.AreEqual("Nu", VerifyCondition(5));
         }
 
         [TestMethod]
         public void OddNumberThatDoesNotMeetOurCondition()
         {
-            Assert.AreEqual("Nu", VerifyParity(2));
+            Assert.AreEqual("Nu", VerifyCondition(2));
         }
-        string VerifyParity(int numberOfKilograms)
+
+        string VerifyCondition(int numberOfKilograms)
         {
-            if (numberOfKilograms % 2 == 0 && numberOfKilograms != 2) 
-                return "DA";
+            return VerifyParity(numberOfKilograms) ? "DA" : "Nu";
+        }
+
+        bool VerifyParity( int number)
+        {
+            if (number % 2 == 0 && number != 2)
+                return true;
             else
-                return "Nu";
-       
+                return false;
         }
     }
 }
