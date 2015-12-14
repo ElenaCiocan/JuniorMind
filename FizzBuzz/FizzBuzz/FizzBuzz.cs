@@ -9,15 +9,24 @@ namespace FizzBuzz
         [TestMethod]
         public void VerifyMultipleOfThree()
         {
-            Assert.AreEqual("Fizz", CalculateMultipleOfThree(6));
+            Assert.AreEqual("Fizz", CalculateMultiple(6));
 
         }
 
-        string CalculateMultipleOfThree(int number)
+        [TestMethod]
+        public void VerifyMultipleOfFive()
+        {
+            Assert.AreEqual("Buzz", CalculateMultiple(25));
+
+        }
+
+        string CalculateMultiple(int number)
         {
             if (number % 3 == 0)
                 return "Fizz";
-            return Convert.ToString(number);
+            if (number % 5 == 0)
+                return "Buzz";
+            return Convert.ToString(0);
         }
     }
 }
