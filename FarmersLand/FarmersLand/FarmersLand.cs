@@ -12,6 +12,12 @@ namespace FarmersLand
             Assert.AreEqual(2, CalculateTheInitialDimensionOfTheLand(4, 12));
         }
 
+        [TestMethod]
+        public void TestForTheRequestedDimensions()
+        {
+            Assert.AreEqual(770, CalculateTheInitialDimensionOfTheLand(230, 770000));
+        }
+
         double CalculateTheInitialDimensionOfTheLand(int width, int finalArea)
         {
             double delta = width * width - (4 * 1 * (-1) * finalArea);
