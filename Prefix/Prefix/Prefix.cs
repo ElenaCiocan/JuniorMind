@@ -20,16 +20,22 @@ namespace Prefix
 
         string FindThePrefix(string firstString, string secondsString)
         {
-            int noOfEqualLetters=0,i;
-            string prefix=null;
-            for (i = 0; i < Math.Min(firstString.Length, secondsString.Length); i++)
+            string prefix = null;
+            int noOfEqualLetters = 0;
+            CompareStrings(firstString, secondsString, ref noOfEqualLetters);
+            for (int i = 0; i < noOfEqualLetters; i++)
+                prefix += firstString[i];
+            return prefix;
+        }
+
+        private static int CompareStrings(string firstString, string secondsString, ref int noOfEqualLetters)
+        {
+             for (int i = 0; i < Math.Min(firstString.Length, secondsString.Length); i++)
                 if (firstString[i] == secondsString[i])
                     noOfEqualLetters++;
                 else
                     break;
-            for (i = 0; i < noOfEqualLetters; i++)
-                prefix += firstString[i];
-            return prefix;
+            return noOfEqualLetters;
         }
     }
 }
