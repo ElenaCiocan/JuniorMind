@@ -12,6 +12,12 @@ namespace Prefix
             Assert.AreEqual("aaa", FindThePrefix("aaab", "aaaabbaa"));
         }
 
+        [TestMethod]
+        public void TestForTwoStringsWithoutCommonPrefix()
+        {
+            Assert.AreEqual(null, FindThePrefix("AAab", "aaaabbaa"));
+        }
+
         string FindThePrefix(string firstString, string secondsString)
         {
             int noOfEqualLetters=0,i;
