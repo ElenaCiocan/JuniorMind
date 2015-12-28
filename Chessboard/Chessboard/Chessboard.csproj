@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E5002BF3-D8A9-40D2-8DA4-CF8C6B8080A6}</ProjectGuid>
+    <ProjectGuid>{3EEA1952-6C19-4C81-9693-2351C78AD73B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Chessboard</RootNamespace>

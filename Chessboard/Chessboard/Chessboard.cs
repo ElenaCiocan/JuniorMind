@@ -7,8 +7,14 @@ namespace Chessboard
     public class Chessboard
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestForATwoByTwoBoard()
         {
+            Assert.AreEqual(5, CalculateTheSquaresOnAChessboard(2));
+        }
+
+        int CalculateTheSquaresOnAChessboard(int lenght)
+        {
+            return lenght * lenght + 1;
         }
     }
 }
