@@ -15,27 +15,21 @@ namespace Prefix
         [TestMethod]
         public void TestForTwoStringsWithoutCommonPrefix()
         {
-            Assert.AreEqual(null, FindThePrefix("AAab", "aaaabbaa"));
+            Assert.AreEqual("", FindThePrefix("AAab", "aaaabbaa"));
         }
 
         string FindThePrefix(string firstString, string secondsString)
         {
-            string prefix = null;
-            int noOfEqualLetters = 0;
-            CompareStrings(firstString, secondsString, ref noOfEqualLetters);
-            for (int i = 0; i < noOfEqualLetters; i++)
-                prefix += firstString[i];
-            return prefix;
-        }
-
-        private static int CompareStrings(string firstString, string secondsString, ref int noOfEqualLetters)
-        {
-             for (int i = 0; i < Math.Min(firstString.Length, secondsString.Length); i++)
+            string prefix = string.Empty;
+            for (int i = 0; i < Math.Min(firstString.Length, secondsString.Length); i++)
                 if (firstString[i] == secondsString[i])
-                    noOfEqualLetters++;
+                    prefix += firstString[i];
                 else
                     break;
-            return noOfEqualLetters;
+            if (prefix != null)
+                return prefix;
+            else
+                return "No common prefix!";
         }
     }
 }
