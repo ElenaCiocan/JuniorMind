@@ -26,10 +26,7 @@ namespace Prefix
                     prefix += firstString[i];
                 else
                     break;
-            if (prefix != null)
-                return prefix;
-            else
-                return "No common prefix!";
+            return prefix;
         }
     }
 }
