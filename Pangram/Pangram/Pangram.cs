@@ -6,38 +6,26 @@ namespace Pangram
     [TestClass]
     public class Pangram
     {
+        
         [TestMethod]
-        public void ModifyAllTheLettersInLowerCaseLetters()
-        {
-            Assert.AreEqual("abcdefghijklmnopqrstuvwxyz", ConvertUpperCaseLettersToLowerCase("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        }
-
-        [TestMethod]
-        public void TestIfTheSentenceIsAPangramOrNot()
+        public void TestIfTheSentenceIsAPangram()
         {
             Assert.AreEqual("Yes", FindIfASentenceIsAPangramOrNot("The quick brown fox jumps over the lazy dog."));
         }
 
-
-        String ConvertUpperCaseLettersToLowerCase(string sentence)
+        [TestMethod]
+        public void TestIfTheSentenceIsNotAPangram()
         {
-            System.Text.StringBuilder givenSentence = new System.Text.StringBuilder(sentence);
-            for (int i = 0; i < givenSentence.Length; i++)
-                if (System.Char.IsUpper(givenSentence[i]) == true)
-                    givenSentence[i] = System.Char.ToLower(givenSentence[i]);
-            string finalSentence = givenSentence.ToString();
-            return finalSentence;       
+            Assert.AreEqual("No", FindIfASentenceIsAPangramOrNot("The quick brown fox jumps over the dog."));
         }
-        
+
         String FindIfASentenceIsAPangramOrNot(string initialSentence)
         {
             int[] noOfApparitionsOfEachLetter = new int[27];
-            string finalSentence = ConvertUpperCaseLettersToLowerCase(initialSentence);
+            string finalSentence = initialSentence.ToLower();
             CalculateNumberOfApparitionsOfEachLetter(finalSentence, out noOfApparitionsOfEachLetter);
             for (int i = 0; i < 26; i++)
-                if (noOfApparitionsOfEachLetter[i] > 0)
-                    continue;
-                else
+                if (noOfApparitionsOfEachLetter[i] <= 0)
                     return "No";
             return "Yes";
         }
