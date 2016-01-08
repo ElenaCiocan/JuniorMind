@@ -14,17 +14,26 @@ namespace Lunch
 
         public int CalculateDayOfMeeting(int firstPersonDay, int secondPersonDay)
         {
-            int meetingDay=0,i;
-            int product = firstPersonDay * secondPersonDay;
-            for (i = 1; i <= product; i++)
+            int product, greatestCommonDivisor;
+            product = firstPersonDay * secondPersonDay;
+            greatestCommonDivisor = FindGreatestCommonDivisor(firstPersonDay, secondPersonDay);
+            return product / greatestCommonDivisor;
+        }
+
+        public int FindGreatestCommonDivisor( int firstNumber, int secondNumber)
+        {
+            while (firstNumber != secondNumber)
             {
-                if ((i % firstPersonDay == 0) && (i % secondPersonDay == 0))
+                if (firstNumber > secondNumber)
                 {
-                    meetingDay = i;
-                    break;
+                    firstNumber -= secondNumber;
+                }
+                else
+                {
+                    secondNumber -= firstNumber;
                 }
             }
-            return meetingDay;
+            return firstNumber;
         }
     }
 }
