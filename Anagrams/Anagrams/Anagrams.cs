@@ -18,6 +18,13 @@ namespace Anagrams
             Assert.AreEqual("abcdefzg", FindEachUniqueChar("aaabbbcccddddefzggg"));
         }
 
+
+        [TestMethod]
+        public void ShouldCalculateNumberOfApparitions()
+        {
+            Assert.AreEqual(3, CalculateNumberOfApparitions("aaabbbcccddddefzggg","a"));
+        }
+
         public int CalculateFactorial(int number)
         {
             int factorial=1;
@@ -37,6 +44,16 @@ namespace Anagrams
                     check[word[i] - 96] = 1;
                 }
             return uniqueChar;
+        }
+
+        public int CalculateNumberOfApparitions(string word , String character)
+        {
+            int index = 0;
+            for(int i=0;i<word.Length;i++)
+               if (word[i] == Convert.ToChar(character))
+                    index++;
+            return index;
+            
         }
     }
 }
