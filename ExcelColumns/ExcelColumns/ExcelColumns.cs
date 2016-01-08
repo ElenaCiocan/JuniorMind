@@ -7,15 +7,33 @@ namespace ExcelColumns
     public class ExcelColumns
     {
         [TestMethod]
-        public void TestForConversion()
+        public void TestForConversionIntoOneLetter()
         {
             Assert.AreEqual("C", ConvertFromDecimalToExcelValues(3));
         }
 
+        [TestMethod]
+        public void TestForConversionIntoLetters()
+        {
+            Assert.AreEqual("AB", ConvertFromDecimalToExcelValues(28));
+        }
+
         public string ConvertFromDecimalToExcelValues( int number )
         {
-            Char result = (Char)('A' + (number - 1));
-            return result.ToString();
+            String result = String.Empty;
+            while (number != 0)
+            {
+                number--;
+                result = GetChar(number % 26) + result ;
+                number /= 26;
+            }
+            return result;
+        }
+
+        private static string GetChar(int number)
+        {
+            Char convert = (Char)('A' + (number));
+            return convert.ToString();
         }
     }
 }
