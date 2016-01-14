@@ -9,7 +9,13 @@ namespace Loto
         [TestMethod]
         public void TestForTheFirstCategory()
         {
-            Assert.AreEqual(0.00000007, CalculateChances(6));
+            Assert.AreEqual(0.0000000715, CalculateChances(6));
+        }
+
+        [TestMethod]
+        public void TestForTheSecondCategory()
+        {
+            Assert.AreEqual(0.0000005244, CalculateChances(5));
         }
 
         public double CalculateChances(int myNumbers)
@@ -21,7 +27,7 @@ namespace Loto
                 myNumbers--;
                 total--;
             }
-            return Math.Round(chances, 8);
+            return Math.Round(chances, 10);
         }
     }
 }
