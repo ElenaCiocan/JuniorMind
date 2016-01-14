@@ -30,11 +30,11 @@ namespace Anagrams
             Assert.AreEqual(12600, CalculateAnagrams("aabbaaccdb"));
         }
 
-        public int CalculateAnagrams(String word)
+        public int CalculateAnagrams(string word)
         {
             int index = 0;
             int anagrams = CalculateFactorial(word.Length);
-            String uniqueWord = FindEachUniqueChar(word);
+            string uniqueWord = FindEachUniqueChar(word);
             for (int i = 0; i < uniqueWord.Length; i++)
             {
                 index = CalculateNumberOfApparitions(word, uniqueWord[i]);
@@ -52,20 +52,20 @@ namespace Anagrams
             return factorial;
         }
 
-        public String FindEachUniqueChar(string word)
+        public string FindEachUniqueChar(string word)
         {
-            string uniqueChar = String.Empty;
+            string uniqueChar = string.Empty;
             int[] check = new int[27];
             for (int i = 0; i < word.Length; i++)
-                if (check[(word[i] - 96)] == 0)
+                if (check[word[i] - ('a' - 1)] == 0)
                 {
                     uniqueChar += word[i];
-                    check[word[i] - 96] = 1;
+                    check[word[i] - ('a' -1)] = 1;
                 }
             return uniqueChar;
         }
 
-        public int CalculateNumberOfApparitions(string word , Char character)
+        public int CalculateNumberOfApparitions(string word , char character)
         {
             int index = 0;
             for(int i=0;i<word.Length;i++)
