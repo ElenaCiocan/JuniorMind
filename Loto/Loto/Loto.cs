@@ -18,6 +18,12 @@ namespace Loto
             Assert.AreEqual(0.0000005244, CalculateChances(5));
         }
 
+        [TestMethod]
+        public void TestForTheThirdCategory()
+        {
+            Assert.AreEqual(0.0000047197, CalculateChances(4));
+        }
+
         public double CalculateChances(int myNumbers)
         {
             double chances=1, total = 49;
