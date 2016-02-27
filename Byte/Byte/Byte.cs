@@ -14,6 +14,14 @@ namespace Byte
 
         }
 
+        [TestMethod]
+        public void TestForLogicFunctionNot()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 1 }, Not(ConvertToBinary(2)));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 }, Not(ConvertToBinary(12)));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -26,6 +34,13 @@ namespace Byte
             }
             Array.Reverse(binaryNumber);
             return binaryNumber;
+        }
+
+        byte[] Not ( byte[] number)
+        {
+            for (int i = 0; i < number.Length; i++)
+                number[i] = (number[i] == 0) ? (byte)1 : (byte)0;
+            return number;
         }
     }
 }
