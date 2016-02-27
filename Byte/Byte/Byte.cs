@@ -22,6 +22,22 @@ namespace Byte
 
         }
 
+        [TestMethod]
+        public void TestForLogicFunctionAnd()
+        {
+            CollectionAssert.AreEqual(new byte[] { 0, 1 }, And(ConvertToBinary(2)));
+            CollectionAssert.AreEqual(new byte[] { 0, 0, 1, 1 },And(ConvertToBinary(12)));
+
+        }
+
+        [TestMethod]
+        public void TestForGetElement()
+        {
+            Assert.AreEqual(0, GetElement(new byte[] { 1, 2, 3 }, 3));
+            Assert.AreEqual(1, GetElement(new byte[] { 1, 2, 3 }, 2));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -41,6 +57,16 @@ namespace Byte
             for (int i = 0; i < number.Length; i++)
                 number[i] = (number[i] == 0) ? (byte)1 : (byte)0;
             return number;
+        }
+
+        byte[] And ( byte[] number)
+        {
+            return null;
+        }
+
+        byte GetElement( byte[] number, int position)
+        {
+           return (byte)((position > number.Length - 1) ? 0 : number[number.Length-1-position]);
         }
     }
 }
