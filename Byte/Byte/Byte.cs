@@ -38,16 +38,21 @@ namespace Byte
             CollectionAssert.AreEqual(ConvertToBinary(2 & 12), And(ConvertToBinary(2), ConvertToBinary(12)));
 
         }
-       
+        [TestMethod]
+        public void TestForLogicFunctionOr()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(2 | 3), Or(ConvertToBinary(2), ConvertToBinary(3)));
+            CollectionAssert.AreEqual(ConvertToBinary(6 | 3), Or(ConvertToBinary(6), ConvertToBinary(3)));
+            CollectionAssert.AreEqual(ConvertToBinary(2 | 12), Or(ConvertToBinary(2), ConvertToBinary(12)));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
             int i = 0;
-            if(number==0)
-            {
-                Array.Resize(ref binaryNumber, 1);
-                binaryNumber[0] = 0;
-            }
+            if (number == 0)
+                return new byte[] { 0 };
             while (number>0)
             {
                 Array.Resize(ref binaryNumber, i+1);
@@ -71,7 +76,6 @@ namespace Byte
             for (int i = 0; i < result.Length; i++)
                 result[i] = (byte) (GetElement(firstNumber, i) * GetElement(secondNumber, i));
             int zeroes = CountZeroes(result);
-           // Array.Reverse(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
@@ -84,18 +88,30 @@ namespace Byte
 
         int CountZeroes( byte[] number)
         {
-            int noOfZeroes= 0,i=number.Length-1;
-            bool ok = true; 
-            while (i > 0 && ok==true)
+            int noOfZeroes = 0;
+            int i = number.Length - 1;
+            while (i > 0)
             {
-                if (number[i] == 0)
-                    noOfZeroes++;
-                else
                 if (number[i] != 0)
-                    ok=false;
+                    return noOfZeroes;
+                noOfZeroes++;
                 i--;
             }
             return noOfZeroes;
+        }
+
+        byte[] Or (byte[] firstNumber, byte[] secondNumber)
+        {
+            byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
+            for (int i = 0; i < result.Length; i++)
+                if ((GetElement(firstNumber, i) == GetElement(secondNumber, i)) && GetElement(firstNumber, i) == 0)
+                    result[i] = 0;
+                else
+                    result[i] = 1;
+            int zeroes = CountZeroes(result);
+            Array.Resize(ref result, result.Length - zeroes);
+            Array.Reverse(result);
+            return result;
         }
     }
 }
