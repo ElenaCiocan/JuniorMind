@@ -38,6 +38,7 @@ namespace Byte
             CollectionAssert.AreEqual(ConvertToBinary(2 & 12), And(ConvertToBinary(2), ConvertToBinary(12)));
 
         }
+
         [TestMethod]
         public void TestForLogicFunctionOr()
         {
@@ -45,6 +46,14 @@ namespace Byte
             CollectionAssert.AreEqual(ConvertToBinary(6 | 3), Or(ConvertToBinary(6), ConvertToBinary(3)));
             CollectionAssert.AreEqual(ConvertToBinary(2 | 12), Or(ConvertToBinary(2), ConvertToBinary(12)));
 
+        }
+
+        [TestMethod]
+        public void TestForLogicFunctionXor()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(2 ^ 3), Xor(ConvertToBinary(2), ConvertToBinary(3)));
+            CollectionAssert.AreEqual(ConvertToBinary(6 ^ 3), Xor(ConvertToBinary(6), ConvertToBinary(3)));
+            CollectionAssert.AreEqual(ConvertToBinary(2 ^ 12),Xor(ConvertToBinary(2), ConvertToBinary(12)));
         }
 
         byte[] ConvertToBinary ( int number )
@@ -108,6 +117,20 @@ namespace Byte
                     result[i] = 0;
                 else
                     result[i] = 1;
+            int zeroes = CountZeroes(result);
+            Array.Resize(ref result, result.Length - zeroes);
+            Array.Reverse(result);
+            return result;
+        }
+
+        byte[] Xor(byte[] firstNumber, byte[] secondNumber)
+        {
+            byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
+            for (int i = 0; i < result.Length; i++)
+                if (GetElement(firstNumber, i) != GetElement(secondNumber, i))
+                    result[i] = 1;
+                else
+                    result[i] = 0;
             int zeroes = CountZeroes(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
