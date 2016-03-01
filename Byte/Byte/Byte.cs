@@ -60,7 +60,12 @@ namespace Byte
         public void TestForRightHandShift()
         {
             CollectionAssert.AreEqual(ConvertToBinary(10>>2), RightHandShift(ConvertToBinary(10), 2));
+        }
 
+        [TestMethod]
+        public void TestForLeftHandShift()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(10 << 2), LeftHandShift(ConvertToBinary(10), 2));
         }
 
         byte[] ConvertToBinary ( int number )
@@ -165,6 +170,10 @@ namespace Byte
             return number;
         }
 
-
+        byte[] LeftHandShift(byte[] number, int positions)
+        {
+            Array.Resize(ref number, number.Length + positions);
+            return number;
+        }
     }
 }
