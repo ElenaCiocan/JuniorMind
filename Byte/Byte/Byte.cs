@@ -56,6 +56,13 @@ namespace Byte
             CollectionAssert.AreEqual(ConvertToBinary(2 ^ 12),Xor(ConvertToBinary(2), ConvertToBinary(12)));
         }
 
+        [TestMethod]
+        public void TestForRightHandShift()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(10>>2), RightHandShift(ConvertToBinary(10), 2));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -151,6 +158,13 @@ namespace Byte
             }
             return noOfZeroes;
         }
-            
+
+        byte[] RightHandShift(byte[] number, int positions)
+        {
+            Array.Resize(ref number, number.Length-positions);
+            return number;
+        }
+
+
     }
 }
