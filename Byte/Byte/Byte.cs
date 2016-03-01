@@ -81,9 +81,35 @@ namespace Byte
 
         byte[] And ( byte[] firstNumber, byte[] secondNumber)
         {
+            return LogicOperations(firstNumber, secondNumber, "And");
+        }
+
+        byte[] Or(byte[] firstNumber, byte[] secondNumber)
+        {
+            return LogicOperations(firstNumber, secondNumber, "Or");
+        }
+
+        byte[] Xor(byte[] firstNumber, byte[] secondNumber)
+        {
+            return LogicOperations(firstNumber, secondNumber, "Xor");
+        }
+
+        private byte[] LogicOperations(byte[] firstNumber, byte[] secondNumber, string operation)
+        {
             byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
             for (int i = 0; i < result.Length; i++)
-                result[i] = LogicAnd(GetElement(firstNumber, i) ,GetElement(secondNumber, i));
+                switch(operation)
+                {
+                    case "And":
+                        result[i] = LogicAnd(GetElement(firstNumber, i), GetElement(secondNumber, i));
+                        break;
+                    case "Or":
+                        result[i] = LogicOr(GetElement(firstNumber, i), GetElement(secondNumber, i));
+                        break;
+                    case "Xor":
+                        result[i] = LogicXor(GetElement(firstNumber, i), GetElement(secondNumber, i));
+                        break;
+                }
             int zeroes = CountZeroes(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
@@ -93,6 +119,16 @@ namespace Byte
         byte LogicAnd(byte first , byte second)
         {
             return (byte)(first * second);
+        }
+
+        byte LogicOr(byte first, byte second)
+        {
+            return (first == 1 || second == 1) ? (byte)1 : (byte)0;
+        }
+
+        byte LogicXor(byte first, byte second)
+        {
+            return first != second ? (byte)1 : (byte)0;
         }
 
         byte GetElement( byte[] number, int position)
@@ -113,37 +149,6 @@ namespace Byte
             }
             return noOfZeroes;
         }
-
-        byte[] Or (byte[] firstNumber, byte[] secondNumber)
-        {
-            byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
-            for (int i = 0; i < result.Length; i++)
-                result[i] = LogicOr(GetElement(firstNumber, i), GetElement(secondNumber, i));
-            int zeroes = CountZeroes(result);
-            Array.Resize(ref result, result.Length - zeroes);
-            Array.Reverse(result);
-            return result;
-        }
-
-        byte LogicOr ( byte first, byte second)
-        {
-            return (first == 1 || second == 1) ? (byte)1 : (byte)0;
-        }
-
-        byte[] Xor(byte[] firstNumber, byte[] secondNumber)
-        {
-            byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
-            for (int i = 0; i < result.Length; i++)
-               result[i] = LogicXor(GetElement(firstNumber, i), GetElement(secondNumber, i));
-            int zeroes = CountZeroes(result);
-            Array.Resize(ref result, result.Length - zeroes);
-            Array.Reverse(result);
-            return result;
-        }
-
-        byte LogicXor(byte first, byte second)
-        {
-            return  first != second ? (byte)1 : (byte)0;
-        }
+            
     }
 }
