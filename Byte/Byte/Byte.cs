@@ -83,11 +83,16 @@ namespace Byte
         {
             byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
             for (int i = 0; i < result.Length; i++)
-                result[i] = (byte) (GetElement(firstNumber, i) * GetElement(secondNumber, i));
+                result[i] = LogicAnd(GetElement(firstNumber, i) ,GetElement(secondNumber, i));
             int zeroes = CountZeroes(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
+        }
+
+        byte LogicAnd(byte first , byte second)
+        {
+            return (byte)(first * second);
         }
 
         byte GetElement( byte[] number, int position)
@@ -113,28 +118,32 @@ namespace Byte
         {
             byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
             for (int i = 0; i < result.Length; i++)
-                if ((GetElement(firstNumber, i) == GetElement(secondNumber, i)) && GetElement(firstNumber, i) == 0)
-                    result[i] = 0;
-                else
-                    result[i] = 1;
+                result[i] = LogicOr(GetElement(firstNumber, i), GetElement(secondNumber, i));
             int zeroes = CountZeroes(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
         }
 
+        byte LogicOr ( byte first, byte second)
+        {
+            return (first == 1 || second == 1) ? (byte)1 : (byte)0;
+        }
+
         byte[] Xor(byte[] firstNumber, byte[] secondNumber)
         {
             byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
             for (int i = 0; i < result.Length; i++)
-                if (GetElement(firstNumber, i) != GetElement(secondNumber, i))
-                    result[i] = 1;
-                else
-                    result[i] = 0;
+               result[i] = LogicXor(GetElement(firstNumber, i), GetElement(secondNumber, i));
             int zeroes = CountZeroes(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
+        }
+
+        byte LogicXor(byte first, byte second)
+        {
+            return  first != second ? (byte)1 : (byte)0;
         }
     }
 }
