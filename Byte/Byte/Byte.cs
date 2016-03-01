@@ -98,22 +98,24 @@ namespace Byte
         {
             byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
             for (int i = 0; i < result.Length; i++)
-                switch(operation)
-                {
-                    case "And":
-                        result[i] = LogicAnd(GetElement(firstNumber, i), GetElement(secondNumber, i));
-                        break;
-                    case "Or":
-                        result[i] = LogicOr(GetElement(firstNumber, i), GetElement(secondNumber, i));
-                        break;
-                    case "Xor":
-                        result[i] = LogicXor(GetElement(firstNumber, i), GetElement(secondNumber, i));
-                        break;
-                }
+               result[i]= ExecuteLogicOperations(GetElement(firstNumber, i), GetElement(secondNumber, i), operation);
             int zeroes = CountZeroes(result);
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
+        }
+
+        private byte ExecuteLogicOperations(byte first, byte second, string operation)
+        {
+            switch (operation)
+            {
+                case "And":
+                    return LogicAnd(first, second);
+
+                case "Or":
+                    return LogicOr(first, second);
+            }
+            return LogicXor(first, second);
         }
 
         byte LogicAnd(byte first , byte second)
