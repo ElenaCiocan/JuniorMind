@@ -10,7 +10,7 @@ namespace Byte
         public void TestForConversionToBinary()
         {
             CollectionAssert.AreEqual(new byte[]{1,0}, ConvertToBinary(2));
-            CollectionAssert.AreEqual(new byte[] { 1, 1, 0, 0 }, ConvertToBinary(12));
+            CollectionAssert.AreEqual(new byte[] { 1,0 ,0, 0, 0 }, ConvertToBinary(16));
             CollectionAssert.AreEqual(new byte[] { 0 }, ConvertToBinary(0));
         }
 
@@ -74,6 +74,13 @@ namespace Byte
             CollectionAssert.AreEqual(ConvertToBinary(2), LessThan(ConvertToBinary(2), ConvertToBinary(8)));
             CollectionAssert.AreEqual(ConvertToBinary(8), LessThan(ConvertToBinary(25), ConvertToBinary(8)));
 
+        }
+
+        [TestMethod]
+        public void TestforSum()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(8 + 8), Sum(ConvertToBinary(8), ConvertToBinary(8)));
+            CollectionAssert.AreEqual(ConvertToBinary(2 + 8), Sum(ConvertToBinary(2), ConvertToBinary(8)));
         }
 
         byte[] ConvertToBinary ( int number )
@@ -193,6 +200,27 @@ namespace Byte
                 else
                     result = firstNumber;
             return result;
+        }
+
+        byte[] Sum(byte[] firstNumber, byte[] secondNumber)
+        {
+            int carry = 0,sum;
+            byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
+            for (int i = 0; i < result.Length; i++)
+            {
+                sum = GetElement(firstNumber, i) + GetElement(secondNumber, i) + carry ;
+                result[i] = (byte)(sum%2);
+                carry = sum / 2;
+            }
+            if (carry == 1)
+            {
+                Array.Resize(ref result, result.Length + 1);
+                int i = result.Length - 1;
+                result[i] = 1;
+            }
+            Array.Reverse(result);
+            return result;
+            
         }
     }
 }
