@@ -71,9 +71,9 @@ namespace Byte
         [TestMethod]
         public void TestForLessThan()
         {
-            Assert.AreEqual(2<8, LessThan(ConvertToBinary(2), ConvertToBinary(8)));
-            Assert.AreEqual(25<8, LessThan(ConvertToBinary(25), ConvertToBinary(8)));
-
+            Assert.AreEqual(2 < 8, LessThan(ConvertToBinary(2), ConvertToBinary(8)));
+            Assert.AreEqual(25 < 8, LessThan(ConvertToBinary(25), ConvertToBinary(8)));
+            Assert.AreEqual(8 < 2, LessThan(ConvertToBinary(8), ConvertToBinary(2)));
         }
 
         [TestMethod]
@@ -201,15 +201,16 @@ namespace Byte
 
         bool LessThan(byte[] firstNumber, byte[] secondNumber)
         {
-           bool result=false;
-           for (int i = Math.Max(firstNumber.Length, secondNumber.Length) - 1; i >= 0; i--)
-                if (GetElement(firstNumber, i) > GetElement(secondNumber, i))
-                    result=false;
-                else
-                    result=true;
+            bool result = false;
+            for (int i = Math.Max(firstNumber.Length, secondNumber.Length) - 1; i >= 0; i--)
+                if (GetElement(firstNumber, i) != GetElement(secondNumber, i))
+                {
+                    result = GetElement(firstNumber, i) < GetElement(secondNumber, i);
+                    break;
+                }
             return result;
         }
-
+            
         byte[] Sum(byte[] firstNumber, byte[] secondNumber)
         {
             int carry = 0,sum;
