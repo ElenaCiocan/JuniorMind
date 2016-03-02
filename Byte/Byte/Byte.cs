@@ -83,6 +83,14 @@ namespace Byte
             CollectionAssert.AreEqual(ConvertToBinary(2 + 8), Sum(ConvertToBinary(2), ConvertToBinary(8)));
         }
 
+        [TestMethod]
+        public void TestForSubstraction()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(10 -2), Substraction(ConvertToBinary(10), ConvertToBinary(2)));
+            CollectionAssert.AreEqual(ConvertToBinary(2 - 2), Substraction(ConvertToBinary(2), ConvertToBinary(2)));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -220,7 +228,22 @@ namespace Byte
             }
             Array.Reverse(result);
             return result;
-            
+        }
+
+        byte[] Substraction( byte[] firstNumber, byte[] secondNumber)
+        {
+            int carry = 0, diff;
+            byte[] result = new byte[Math.Max(firstNumber.Length, secondNumber.Length)];
+            for (int i = 0; i < result.Length; i++)
+            {
+                diff = 2 + GetElement(firstNumber, i) - GetElement(secondNumber, i) - carry;
+                result[i] = (byte)(diff % 2);
+                carry = diff < 2 ? 1 : 0; 
+            }
+            int zeroes = CountZeroes(result);
+            Array.Resize(ref result, result.Length - zeroes);
+            Array.Reverse(result);
+            return result;
         }
     }
 }
