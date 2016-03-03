@@ -99,6 +99,14 @@ namespace Byte
 
         }
 
+        [TestMethod]
+        public void TestForDivision()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(12 / 3), Division(ConvertToBinary(12), ConvertToBinary(3)));
+            CollectionAssert.AreEqual(ConvertToBinary(3 / 3), Division(ConvertToBinary(3), ConvertToBinary(3)));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -262,6 +270,16 @@ namespace Byte
                 result = Sum(result, firstNumber);
             return result;
         }
-                
+
+        byte[] Division(byte[] firstNumber, byte[] secondNumber)
+        {
+            byte[] result = new byte[] { 0 };
+            while(LessThan(ConvertToBinary(0),firstNumber))
+            {
+                firstNumber = Substraction(firstNumber, secondNumber);
+                result = Sum(result, ConvertToBinary(1));
+            }
+            return result;
+        }
     }
 }
