@@ -122,6 +122,13 @@ namespace Byte
             Assert.AreEqual(25 == 24, Equal(ConvertToBinary(25), ConvertToBinary(24)));
         }
 
+        [TestMethod]
+        public void TestForNotEqual()
+        {
+            Assert.AreEqual(25 != 8, NotEqual(ConvertToBinary(25), ConvertToBinary(8)));
+            Assert.AreEqual(24 != 24, NotEqual(ConvertToBinary(24), ConvertToBinary(24)));
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -260,6 +267,11 @@ namespace Byte
                 return true;
             else
                 return false;
+        }
+
+        bool NotEqual(byte[] firstNumber, byte[] secondNumber)
+        {
+            return !Equal(firstNumber, secondNumber);
         }
 
         byte[] Sum(byte[] firstNumber, byte[] secondNumber)
