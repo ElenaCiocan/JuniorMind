@@ -107,6 +107,14 @@ namespace Byte
 
         }
 
+        [TestMethod]
+        public void TestForGreaterThan()
+        {
+            Assert.AreEqual(2 > 8, GreaterThan(ConvertToBinary(2), ConvertToBinary(8)));
+            Assert.AreEqual(25 > 8, GreaterThan(ConvertToBinary(25), ConvertToBinary(8)));
+            Assert.AreEqual(8 > 2, GreaterThan(ConvertToBinary(8), ConvertToBinary(2)));
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -261,6 +269,11 @@ namespace Byte
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
+        }
+
+        bool GreaterThan( byte[] firstNumber, byte[] secondNumber)
+        {
+            return !LessThan(firstNumber, secondNumber);
         }
 
         byte[] Multiplication(byte[] firstNumber, byte[] secondNumber)
