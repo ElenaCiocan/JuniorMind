@@ -112,7 +112,14 @@ namespace Byte
         {
             Assert.AreEqual(2 > 8, GreaterThan(ConvertToBinary(2), ConvertToBinary(8)));
             Assert.AreEqual(25 > 8, GreaterThan(ConvertToBinary(25), ConvertToBinary(8)));
-            Assert.AreEqual(8 > 2, GreaterThan(ConvertToBinary(8), ConvertToBinary(2)));
+            Assert.AreEqual(8 > 8, GreaterThan(ConvertToBinary(8), ConvertToBinary(8)));
+        }
+
+        [TestMethod]
+        public void TestForEqual()
+        {
+            Assert.AreEqual(8 == 8, Equal(ConvertToBinary(8), ConvertToBinary(8)));
+            Assert.AreEqual(25 == 24, Equal(ConvertToBinary(25), ConvertToBinary(24)));
         }
 
         byte[] ConvertToBinary ( int number )
@@ -234,7 +241,27 @@ namespace Byte
                 }
             return result;
         }
-            
+
+        bool GreaterThan(byte[] firstNumber, byte[] secondNumber)
+        {
+            bool result = false;
+            for (int i = Math.Max(firstNumber.Length, secondNumber.Length) - 1; i >= 0; i--)
+                if (GetElement(firstNumber, i) != GetElement(secondNumber, i))
+                {
+                    result = GetElement(firstNumber, i) > GetElement(secondNumber, i);
+                    break;
+                }
+            return result;
+        }
+
+        bool Equal( byte[] firstNumber, byte[] secondNumber)
+        {
+            if (!LessThan(firstNumber, secondNumber)  && !GreaterThan(firstNumber, secondNumber)) 
+                return true;
+            else
+                return false;
+        }
+
         byte[] Sum(byte[] firstNumber, byte[] secondNumber)
         {
             int carry = 0,sum;
@@ -269,11 +296,6 @@ namespace Byte
             Array.Resize(ref result, result.Length - zeroes);
             Array.Reverse(result);
             return result;
-        }
-
-        bool GreaterThan( byte[] firstNumber, byte[] secondNumber)
-        {
-            return !LessThan(firstNumber, secondNumber);
         }
 
         byte[] Multiplication(byte[] firstNumber, byte[] secondNumber)
