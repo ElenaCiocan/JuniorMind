@@ -91,6 +91,14 @@ namespace Byte
 
         }
 
+        [TestMethod]
+        public void TestForMultiplication()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(2 * 3), Multiplication(ConvertToBinary(2), ConvertToBinary(3)));
+            CollectionAssert.AreEqual(ConvertToBinary(10 * 10), Multiplication(ConvertToBinary(10), ConvertToBinary(10)));
+
+        }
+
         byte[] ConvertToBinary ( int number )
         {
             byte[] binaryNumber = new byte[0];
@@ -246,5 +254,14 @@ namespace Byte
             Array.Reverse(result);
             return result;
         }
+
+        byte[] Multiplication(byte[] firstNumber, byte[] secondNumber)
+        {
+            byte[] result = new byte[] { 0 };
+            for (byte[] i = { 0 }; LessThan(i, secondNumber); i=Sum(i, ConvertToBinary(1)))
+                result = Sum(result, firstNumber);
+            return result;
+        }
+                
     }
 }
