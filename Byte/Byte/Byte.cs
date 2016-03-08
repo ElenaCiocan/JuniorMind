@@ -6,6 +6,8 @@ namespace Byte
     [TestClass]
     public class Byte
     {
+        private object CollectionsAssert;
+
         [TestMethod]
         public void TestForConversionToBinary()
         {
@@ -101,7 +103,7 @@ namespace Byte
 
         [TestMethod]
         public void TestForDivision()
-        {
+        {   
             CollectionAssert.AreEqual(ConvertToBinary(12 / 3), Division(ConvertToBinary(12), ConvertToBinary(3)));
             CollectionAssert.AreEqual(ConvertToBinary(3 / 3), Division(ConvertToBinary(3), ConvertToBinary(3)));
 
@@ -127,6 +129,12 @@ namespace Byte
         {
             Assert.AreEqual(25 != 8, NotEqual(ConvertToBinary(25), ConvertToBinary(8)));
             Assert.AreEqual(24 != 24, NotEqual(ConvertToBinary(24), ConvertToBinary(24)));
+        }
+
+        [TestMethod]
+        public void TestForFactorial()
+        {
+            CollectionAssert.AreEqual(ConvertToBinary(49), Division(Factorial(ConvertToBinary(49)), Factorial(ConvertToBinary(48))));
         }
 
         byte[] ConvertToBinary ( int number )
@@ -328,5 +336,14 @@ namespace Byte
             }
             return result;
         }
+
+        byte[] Factorial(byte[] number)
+        {
+            byte[] result = new byte[] { 1 };
+            for (byte[] i = { 2 }; LessThan(i, number); i = Sum(i, ConvertToBinary(1)))
+                result = Multiplication(result, i);
+            return Multiplication(result,number);
+        }
+
     }
 }
