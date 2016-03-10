@@ -35,6 +35,14 @@ namespace Shoppings
             deleteTheMostExpensiveProduct(products);
             Assert.IsTrue(products[products.Length - 2].name != "Chips");
         }
+        
+        [TestMethod]
+        public void TestForAddingANewElement()
+        {
+            var products = new Product[] { new Product("Cake", (decimal)10.25), new Product("Coke", (decimal)15.50), new Product("Chips", 25), new Product("Chocolate", (decimal)8.25) };
+            AddANewProduct(ref products);
+            Assert.IsTrue(products[products.Length-1].name != "Chocolate");
+        }
 
         struct Product
         {
@@ -60,11 +68,8 @@ namespace Shoppings
             decimal theCheapestProduct = products[0].price;
             int noProduct = 0;
             for (int i = 1; i < products.Length; i++)
-                if (products[i].price < theCheapestProduct)
-                {
-                    theCheapestProduct = products[i].price;
+                if (products[i].price < theCheapestProduct)  
                     noProduct = i;
-                }
             return products[noProduct].name;
         }
 
@@ -83,6 +88,13 @@ namespace Shoppings
                 if (products[i].price > theCheapestProduct)
                     noProduct = i;
             return noProduct;
+        }
+
+        void AddANewProduct(ref Product[] products)
+        {
+            Array.Resize(ref products, products.Length + 1);
+            products[products.Length - 1].price = (decimal)25.08;
+            products[products.Length - 1].name = "Candy";
         }
 
         decimal CalculateMeanValue( Product[] products)
