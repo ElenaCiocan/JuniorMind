@@ -70,13 +70,19 @@ namespace Shoppings
 
         void deleteTheMostExpensiveProduct(Product[] products)
         {
+            int noProduct = FindIndexOfTheMostExpensiveProduct(products);
+            products[noProduct] = products[products.Length - 1];
+            Array.Resize(ref products, products.Length - 1);
+        }
+
+        private static int FindIndexOfTheMostExpensiveProduct(Product[] products)
+        {
             decimal theCheapestProduct = products[0].price;
             int noProduct = 0;
             for (int i = 1; i < products.Length; i++)
-                if (products[i].price > theCheapestProduct)                
+                if (products[i].price > theCheapestProduct)
                     noProduct = i;
-            products[noProduct] = products[products.Length - 1];
-            Array.Resize(ref products, products.Length - 1);
+            return noProduct;
         }
 
         decimal CalculateMeanValue( Product[] products)
