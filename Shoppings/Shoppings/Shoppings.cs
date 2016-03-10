@@ -28,6 +28,14 @@ namespace Shoppings
             Assert.AreEqual((decimal)24.6875, CalculateMeanValue(products));
         }
 
+        [TestMethod]
+        public void TestForDeletingTheMostExpensiveProduct()
+        {
+            var products = new Product[] { new Product("Cake",(decimal)10.25), new Product("Coke", (decimal)15.50), new Product("Chips", 25), new Product("Chocolate", (decimal)8.25) };
+            deleteTheMostExpensiveProduct(products);
+            Assert.IsTrue(products[products.Length - 2].name != "Chips");
+        }
+
         struct Product
         {
             public string name;
@@ -58,6 +66,17 @@ namespace Shoppings
                     noProduct = i;
                 }
             return products[noProduct].name;
+        }
+
+        void deleteTheMostExpensiveProduct(Product[] products)
+        {
+            decimal theCheapestProduct = products[0].price;
+            int noProduct = 0;
+            for (int i = 1; i < products.Length; i++)
+                if (products[i].price > theCheapestProduct)                
+                    noProduct = i;
+            products[noProduct] = products[products.Length - 1];
+            Array.Resize(ref products, products.Length - 1);
         }
 
         decimal CalculateMeanValue( Product[] products)
