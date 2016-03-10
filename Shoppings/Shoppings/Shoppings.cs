@@ -21,6 +21,12 @@ namespace Shoppings
 
         }
 
+        [TestMethod]
+        public void TestForMeanValue()
+        {
+            var products = new Product[] { new Product("Cake", 50), new Product("Coke", (decimal)15.50), new Product("Chips", 25), new Product("Chocolate", (decimal)8.25) };
+            Assert.AreEqual((decimal)24.6875, CalculateMeanValue(products));
+        }
 
         struct Product
         {
@@ -52,6 +58,12 @@ namespace Shoppings
                     noProduct = i;
                 }
             return products[noProduct].name;
+        }
+
+        decimal CalculateMeanValue( Product[] products)
+        {
+            decimal sum = CalculateTotal(products);
+            return sum /products.Length;
         }
     }
 }
