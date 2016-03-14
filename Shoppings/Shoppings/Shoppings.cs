@@ -17,7 +17,7 @@ namespace Shoppings
         public void TestForFindingTheCheapestProduct()
         {
             var products = new Product[] { new Product("Cake", 50), new Product("Coke", (decimal)15.50), new Product("Chips", 25), new Product("Chocolate", (decimal)8.25) };
-            Assert.AreEqual("Chocolate", FindOutTheCheapestProduct(products));
+            Assert.AreEqual(products[3], FindOutTheCheapestProduct(products));
 
         }
 
@@ -63,14 +63,14 @@ namespace Shoppings
             return total;
         }
 
-        string FindOutTheCheapestProduct( Product[] products)
+        Product FindOutTheCheapestProduct( Product[] products)
         {
             decimal theCheapestProduct = products[0].price;
             int noProduct = 0;
             for (int i = 1; i < products.Length; i++)
                 if (products[i].price < theCheapestProduct)  
                     noProduct = i;
-            return products[noProduct].name;
+            return products[noProduct];
         }
 
         void deleteTheMostExpensiveProduct(Product[] products)
