@@ -20,6 +20,13 @@ namespace Cyclometer
             Assert.AreEqual(226.19, CalculateMaximumSpeedForACyclist(cyclists[0]),1e-2);
         }
 
+        [TestMethod]
+        public void TestForTheCyclistWithMaxSpeed()
+        {
+            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            Assert.AreEqual("Andrei", CalculateMaxSpeed(cyclists));
+        }
+
         struct Cyclist
         {
             public string name;
@@ -58,7 +65,7 @@ namespace Cyclometer
             double diameter = Math.PI * cyclists.diameter;
             double distance = cyclists.noRotations[0] * diameter;
             double maxSpeed = distance / 1;
-           // maxSecond = 1;
+          //  int maxSecond = 1;
             for (int i = 1; i < cyclists.noSeconds; i++)
             {
                 distance = cyclists.noRotations[i] * diameter;
@@ -66,12 +73,27 @@ namespace Cyclometer
                 if (speed > maxSpeed)
                 {
                     maxSpeed = speed;
-                  //  maxSecond = i + 1;
+                //    maxSecond = i + 1;
                 } 
             }
             return maxSpeed;
         }
-    
+
+        string CalculateMaxSpeed(Cyclist[] cyclists)
+        {
+            double[] maxSpeeds = new double[cyclists.Length];
+            int cyclistNo = 0;
+            for (int i = 0; i < cyclists.Length; i++)
+                maxSpeeds[i] = CalculateMaximumSpeedForACyclist(cyclists[i]);
+            double max = maxSpeeds[0];
+            for (int i = 1; i < maxSpeeds.Length; i++)
+            {
+                if (maxSpeeds[i] > max)
+                    cyclistNo = i;
+            }
+            return cyclists[cyclistNo].name;
+        }
+
 
     }
 }
