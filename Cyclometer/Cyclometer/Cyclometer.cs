@@ -9,18 +9,28 @@ namespace Cyclometer
         [TestMethod]
         public void TestForNoOfTotalRotations()
         {
-            var cyclists = new Cyclist[] { new Cyclist(7, new int[]{ 2, 3, 4, 2, 1, 6, 5}, 12), new Cyclist(5, new int[] { 2, 3, 4, 2, 5 }, 12), new Cyclist(6, new int[] { 2, 3, 4, 2, 6, 5 }, 11), new Cyclist(7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 13) };
+            var cyclists = new Cyclist[] { new Cyclist("Andrei",7, new int[]{ 2, 3, 4, 2, 1, 6, 5}, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 12), new Cyclist("Marina",6, new int[] { 2, 3, 4, 2, 6, 5 }, 11), new Cyclist("Alina",7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 13) };
             Assert.AreEqual(84, CalculateNoOfRotations(cyclists));
+        }
+
+        [TestMethod]
+        public void TestForMaximumSpeedForACyclist()
+        {
+            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            Assert.AreEqual(226.19, CalculateMaximumSpeedForACyclist(cyclists[0]),1e-2);
         }
 
         struct Cyclist
         {
-           public int noSeconds;
-           public int[] noRotations;
-           public double diameter;
+            public string name;
+            public int noSeconds;
+            public int[] noRotations;
+           // public double[] speed;       
+            public double diameter;
 
-           public Cyclist(int seconds, int[] rotations, double diameter)
+           public Cyclist(string name,int seconds, int[] rotations, double diameter)
             {
+                this.name = name;
                 noSeconds = seconds;
                 noRotations = rotations;
                 this.diameter = diameter;
@@ -42,5 +52,26 @@ namespace Cyclometer
                 noOfRotations += cyclists.noRotations[j];
             return noOfRotations;
         }
+
+        double CalculateMaximumSpeedForACyclist(Cyclist cyclists)
+        {
+            double diameter = Math.PI * cyclists.diameter;
+            double distance = cyclists.noRotations[0] * diameter;
+            double maxSpeed = distance / 1;
+           // maxSecond = 1;
+            for (int i = 1; i < cyclists.noSeconds; i++)
+            {
+                distance = cyclists.noRotations[i] * diameter;
+                double speed = distance / 1;
+                if (speed > maxSpeed)
+                {
+                    maxSpeed = speed;
+                  //  maxSecond = i + 1;
+                } 
+            }
+            return maxSpeed;
+        }
+    
+
     }
 }
