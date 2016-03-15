@@ -34,6 +34,13 @@ namespace Cyclometer
             Assert.AreEqual(6, CalculateMaxSecond(cyclists));
         }
 
+        [TestMethod]
+        public void TestForTheAverageSpeed()
+        {
+            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            Assert.AreEqual(cyclists[0], FindOutTheCyclistWithTheBestAverageSpeed(cyclists));
+        }
+
         struct Cyclist
         {
             public string name;
@@ -121,5 +128,25 @@ namespace Cyclometer
             }
             return maxSeconds[cyclistNo] ;
         }
+
+        Cyclist FindOutTheCyclistWithTheBestAverageSpeed(Cyclist[] cyclists)
+        {
+            int cyclistNo = 0;
+            double[] averageSpeeds = new double[cyclists.Length];
+            for (int i = 0; i < averageSpeeds.Length; i++)
+            {
+                double circumference = Math.PI * cyclists[i].diameter;
+                double totalDistance = CalculateNoOfRotationsPerCyclist(cyclists[i]) * circumference;
+                averageSpeeds[i] = totalDistance / cyclists[i].noSeconds;
+            }
+            double maxAverageSpeed = averageSpeeds[0];
+            for (int i = 1; i < averageSpeeds.Length; i++)
+            {
+                if (averageSpeeds[i] > maxAverageSpeed)
+                    cyclistNo = i;
+            }
+            return cyclists[cyclistNo];
+        }
+        
     }
 }
