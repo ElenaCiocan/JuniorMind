@@ -31,9 +31,16 @@ namespace Cyclometer
         {
             int noOfTotalRotations = 0;
             for (int i = 0; i < cyclists.Length; i++)
-                for (int j = 0; j < cyclists[i].noSeconds; j++)
-                    noOfTotalRotations += cyclists[i].noRotations[j];
+                noOfTotalRotations += CalculateNoOfRotationsPerCyclist(cyclists[i]);
             return noOfTotalRotations;
+        }
+
+        private static int CalculateNoOfRotationsPerCyclist(Cyclist cyclists)
+        {
+            int noOfRotations = 0;
+            for (int j = 0; j < cyclists.noSeconds; j++)
+                noOfRotations += cyclists.noRotations[j];
+            return noOfRotations;
         }
     }
 }
