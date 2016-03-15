@@ -101,12 +101,7 @@ namespace Cyclometer
             int cyclistNo = 0;
             for (int i = 0; i < cyclists.Length; i++)
                 maxSpeeds[i] = CalculateMaximumSpeedForACyclist(cyclists[i],"Speed");
-            double max = maxSpeeds[0];
-            for (int i = 1; i < maxSpeeds.Length; i++)
-            {
-                if (maxSpeeds[i] > max)
-                    cyclistNo = i;
-            }
+            cyclistNo = CalculateMax(maxSpeeds);
             return cyclists[cyclistNo].name;
         }
 
@@ -120,12 +115,7 @@ namespace Cyclometer
                 maxSpeeds[i] = CalculateMaximumSpeedForACyclist(cyclists[i], "Speed");
                 maxSeconds[i] = CalculateMaximumSpeedForACyclist(cyclists[i], "Second");
             }
-            double max = maxSpeeds[0];
-            for (int i = 1; i < maxSpeeds.Length; i++)
-            {
-                if (maxSpeeds[i] > max)
-                    cyclistNo = i;
-            }
+            cyclistNo = CalculateMax(maxSpeeds);
             return maxSeconds[cyclistNo] ;
         }
 
@@ -139,14 +129,20 @@ namespace Cyclometer
                 double totalDistance = CalculateNoOfRotationsPerCyclist(cyclists[i]) * circumference;
                 averageSpeeds[i] = totalDistance / cyclists[i].noSeconds;
             }
+            cyclistNo = CalculateMax(averageSpeeds);
+            return cyclists[cyclistNo];
+        }
+
+        private static int CalculateMax( double[] averageSpeeds)
+        {
+            int max=0;
             double maxAverageSpeed = averageSpeeds[0];
             for (int i = 1; i < averageSpeeds.Length; i++)
             {
                 if (averageSpeeds[i] > maxAverageSpeed)
-                    cyclistNo = i;
+                    max = i;
             }
-            return cyclists[cyclistNo];
+            return max;
         }
-        
     }
 }
