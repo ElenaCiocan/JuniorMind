@@ -7,70 +7,69 @@ namespace Cyclometer
     public class Cyclometer
     {
         [TestMethod]
-        public void TestForNoOfTotalRotations()
+        public void TestForTotalDistance()
         {
-            var cyclists = new Cyclist[] { new Cyclist("Andrei",7, new int[]{ 2, 3, 4, 2, 1, 6, 5}, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 12), new Cyclist("Marina",6, new int[] { 2, 3, 4, 2, 6, 5 }, 11), new Cyclist("Alina",7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 13) };
-            Assert.AreEqual(84, CalculateNoOfRotations(cyclists));
+            var cyclists = new Cyclist[] { new Cyclist("Andrei", new int[]{ 2, 3, 4, 2, 1, 6, 5}, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 12), new Cyclist("Marina", new int[] { 2, 3, 4, 2, 6, 5 }, 11)};
+            Assert.AreEqual(2230.53, CalculateTotalDistance(cyclists),1e-2);
         }
 
         [TestMethod]
         public void TestForMaximumSpeedForACyclist()
         {
-            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            var cyclists = new Cyclist[] { new Cyclist("Andrei", new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 11) };
             Assert.AreEqual(226.19, CalculateMaximumSpeedForACyclist(cyclists[0],"Speed"),1e-2);
         }
 
         [TestMethod]
         public void TestForTheCyclistWithMaxSpeed()
         {
-            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            var cyclists = new Cyclist[] { new Cyclist("Andrei",  new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 11) };
             Assert.AreEqual("Andrei", CalculateMaxSpeed(cyclists));
         }
 
         [TestMethod]
         public void TestForTheSecondWithMaxSpeed()
         {
-            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            var cyclists = new Cyclist[] { new Cyclist("Andrei",  new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 11) };
             Assert.AreEqual(6, CalculateMaxSecond(cyclists));
         }
 
         [TestMethod]
         public void TestForTheAverageSpeed()
         {
-            var cyclists = new Cyclist[] { new Cyclist("Andrei", 7, new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", 5, new int[] { 2, 3, 4, 2, 5 }, 11) };
+            var cyclists = new Cyclist[] { new Cyclist("Andrei",  new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai", new int[] { 2, 3, 4, 2, 5 }, 11) };
             Assert.AreEqual(cyclists[0], FindOutTheCyclistWithTheBestAverageSpeed(cyclists));
         }
 
         struct Cyclist
         {
             public string name;
-            public int noSeconds;
             public int[] noRotations;
             public double diameter;
 
-           public Cyclist(string name,int seconds, int[] rotations, double diameter)
+           public Cyclist(string name, int[] rotations, double diameter)
             {
                 this.name = name;
-                noSeconds = seconds;
                 noRotations = rotations;
                 this.diameter = diameter;
             }
         }
 
-        int CalculateNoOfRotations(Cyclist[] cyclists)
+        double CalculateTotalDistance(Cyclist[] cyclists)
         {
-            int noOfTotalRotations = 0;
+            double totalDistance = 0;
             for (int i = 0; i < cyclists.Length; i++)
-                noOfTotalRotations += CalculateNoOfRotationsPerCyclist(cyclists[i]);
-            return noOfTotalRotations;
+                totalDistance += CalculateDistancePerCyclist(cyclists[i]);
+            return totalDistance;
         }
 
-        private static int CalculateNoOfRotationsPerCyclist(Cyclist cyclists)
+        private static double CalculateDistancePerCyclist(Cyclist cyclists)
         {
-            int noOfRotations = 0;
-            for (int j = 0; j < cyclists.noSeconds; j++)
-                noOfRotations += cyclists.noRotations[j];
-            return noOfRotations;
+            double circumference = Math.PI * cyclists.diameter;
+            double distance = 0;
+            for (int j = 0; j < cyclists.noRotations.Length; j++)
+                distance += cyclists.noRotations[j]*circumference;
+            return distance;
         }
 
         double CalculateMaximumSpeedForACyclist(Cyclist cyclists, string option)
@@ -79,7 +78,7 @@ namespace Cyclometer
             double distance = cyclists.noRotations[0] * diameter;
             double maxSpeed = distance / 1;
             int maxSecond = 1;
-            for (int i = 1; i < cyclists.noSeconds; i++)
+            for (int i = 1; i < cyclists.noRotations.Length; i++)
             {
                 distance = cyclists.noRotations[i] * diameter;
                 double speed = distance / 1;
@@ -124,11 +123,7 @@ namespace Cyclometer
             int cyclistNo = 0;
             double[] averageSpeeds = new double[cyclists.Length];
             for (int i = 0; i < averageSpeeds.Length; i++)
-            {
-                double circumference = Math.PI * cyclists[i].diameter;
-                double totalDistance = CalculateNoOfRotationsPerCyclist(cyclists[i]) * circumference;
-                averageSpeeds[i] = totalDistance / cyclists[i].noSeconds;
-            }
+                averageSpeeds[i] = CalculateDistancePerCyclist(cyclists[i]) / cyclists[i].noRotations.Length;
             cyclistNo = CalculateMax(averageSpeeds);
             return cyclists[cyclistNo];
         }
