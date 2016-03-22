@@ -13,26 +13,27 @@ namespace Cyclometer
             Assert.AreEqual(2230.53, CalculateTotalDistance(cyclists),1e-2);
         }
 
-        [TestMethod]
+       /* [TestMethod]
         public void TestForMaximumSpeedForACyclist()
         {
             var cyclists = new Cyclist[] { new Cyclist("Andrei", new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 11) };
-            Assert.AreEqual(226.19, CalculateMaximumSpeedForACyclist(cyclists[0],"Speed"),1e-2);
-        }
+            Assert.AreEqual(226.19, CalculateMaximumSpeedForACyclist(cyclists[0]),1e-2);
+        }*/
 
         [TestMethod]
         public void TestForTheCyclistWithMaxSpeed()
         {
             var cyclists = new Cyclist[] { new Cyclist("Andrei",  new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 11) };
-            Assert.AreEqual("Andrei", CalculateMaxSpeed(cyclists));
+            var second = 6;
+            Assert.AreEqual("Andrei", CalculateMaxSpeed(cyclists,out second));
         }
 
-        [TestMethod]
+     /*   [TestMethod]
         public void TestForTheSecondWithMaxSpeed()
         {
             var cyclists = new Cyclist[] { new Cyclist("Andrei",  new int[] { 2, 3, 4, 2, 1, 6, 5 }, 12), new Cyclist("Mihai",  new int[] { 2, 3, 4, 2, 5 }, 11) };
             Assert.AreEqual(6, CalculateMaxSecond(cyclists));
-        }
+        }*/
 
         [TestMethod]
         public void TestForTheAverageSpeed()
@@ -72,15 +73,15 @@ namespace Cyclometer
             return distance;
         }
 
-        double CalculateMaximumSpeedForACyclist(Cyclist cyclists, string option)
+        double CalculateMaximumSpeedForACyclist(Cyclist cyclists, out int maxSecond)// string option, )
         {
-            double diameter = Math.PI * cyclists.diameter;
-            double distance = cyclists.noRotations[0] * diameter;
-            double maxSpeed = distance / 1;
-            int maxSecond = 1;
+            double circumference = Math.PI * cyclists.diameter;
+            double distance = cyclists.noRotations[0] * circumference;
+            double maxSpeed = CalculateDistancePerCyclist(cyclists);
+            maxSecond = 1;
             for (int i = 1; i < cyclists.noRotations.Length; i++)
             {
-                distance = cyclists.noRotations[i] * diameter;
+                distance = cyclists.noRotations[i] * circumference;
                 double speed = distance / 1;
                 if (speed > maxSpeed)
                 {
@@ -88,23 +89,29 @@ namespace Cyclometer
                     maxSecond = i + 1;
                 } 
             }
-            if (string.Equals(option, "Speed"))
+           // if (string.Equals(option, "Speed"))
                 return maxSpeed;
-            else
-                return maxSecond;
+          // else
+               // return maxSecond;
         }
 
-        string CalculateMaxSpeed(Cyclist[] cyclists)
+        string CalculateMaxSpeed(Cyclist[] cyclists,out int maximumSecond)
         {
             double[] maxSpeeds = new double[cyclists.Length];
+            int[] maxSeconds = new int[cyclists.Length];
             int cyclistNo = 0;
+            maximumSecond = 0;
             for (int i = 0; i < cyclists.Length; i++)
-                maxSpeeds[i] = CalculateMaximumSpeedForACyclist(cyclists[i],"Speed");
+            {
+                maxSpeeds[i] = CalculateMaximumSpeedForACyclist(cyclists[i], out maximumSecond);
+                maxSeconds[i] = maximumSecond;
+            }
             cyclistNo = CalculateMax(maxSpeeds);
+            maximumSecond = maxSeconds[cyclistNo];
             return cyclists[cyclistNo].name;
         }
 
-        double CalculateMaxSecond(Cyclist[] cyclists)
+      /*  double CalculateMaxSecond(Cyclist[] cyclists)
         {
             double[] maxSpeeds = new double[cyclists.Length];
             double[] maxSeconds = new double[cyclists.Length];
@@ -116,7 +123,7 @@ namespace Cyclometer
             }
             cyclistNo = CalculateMax(maxSpeeds);
             return maxSeconds[cyclistNo] ;
-        }
+        }*/
 
         Cyclist FindOutTheCyclistWithTheBestAverageSpeed(Cyclist[] cyclists)
         {
