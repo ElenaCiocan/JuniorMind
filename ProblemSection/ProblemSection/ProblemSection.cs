@@ -23,6 +23,15 @@ namespace ProblemSection
             Assert.AreEqual(true, CalculateIntersectionPoint(initPoint, directions, 3,out point));
         }
 
+        [TestMethod]
+        public void TestForFindingPoint()
+        {
+            var point = new Point(5, 3);
+            var points = new Point[] { new Point(2, 3), new Point(5, 3), new Point(8, 3), new Point(8, 6), new Point(5, 6) };
+            Assert.AreEqual(true, FindPoint(points,point, out point));
+
+        }
+
         struct Point
         {
            public double x;
@@ -65,16 +74,23 @@ namespace ProblemSection
             for (int i = 0; i < directions.Length; i++)
             {
                 point = CalculateNextPoint(startingPoint, directions[i], distance);
-                for (int j = 0; j < allPoints.Length; j++)
-                    if (point.Equals(allPoints[j]))
-                    {
-                        intersectionPoint = point;
-                        return true;
-                    }
-                    else
-                        allPoints[i + 1] = point;
+                if (FindPoint(allPoints, point, out intersectionPoint))
+                    return true;
+                allPoints[i + 1] = point;
             }
             return false; 
+        }
+
+        bool FindPoint(Point[] allPoints,Point point, out Point intersectionPoint)
+        {
+            intersectionPoint = new Point(0, 0);
+            for (int j = 0; j < allPoints.Length; j++)
+                if (point.Equals(allPoints[j]))
+                {
+                    intersectionPoint = point;
+                    return true;
+                }
+            return false;
         }
     }
 }
