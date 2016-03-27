@@ -9,20 +9,37 @@ namespace Password
         [TestMethod]
         public void TestForSmallLetters()
         {
-            var password= GeneratePassword(6,2);
+            var password= GeneratePassword(new Option[] { new Option(1, 4), new Option(2, 2)});
             Assert.AreEqual(4, CountCharacters(password,'a','z'));
         }
 
         [TestMethod]
         public void TestForCapitalLetters()
         {
-            var password = GeneratePassword(6, 2);
+            var password = GeneratePassword(new Option[] { new Option(1, 4), new Option(2, 2) });
             Assert.AreEqual(2, CountCharacters(password,'A','Z'));
         }
-
-        string GeneratePassword(int length, int noOfCapitalLetters = 0)
+        struct Option
         {
-            string password = GenerateLettersAndNumbers(length - noOfCapitalLetters, 'a', 'z' + 1) + GenerateLettersAndNumbers(noOfCapitalLetters, 'A', 'Z' + 1);
+            public int optionNumber;
+            public int length;
+
+            public Option(int optionNumber, int length)
+            {
+                this.optionNumber = optionNumber;
+                this.length = length;
+            }
+        }
+        string GeneratePassword(Option[] options)
+        {
+            string password = null;
+            for (int i = 0; i < options.Length; i++)
+            {
+                if (options[i].optionNumber == 1)
+                   password += GenerateLettersAndNumbers(options[i].length, 'a', 'z' + 1);
+                if (options[i].optionNumber == 2)
+                    password += GenerateLettersAndNumbers(options[i].length, 'A', 'Z' + 1);
+            }
             return password;
         }
         string GenerateLettersAndNumbers(int number, int start, int end)
