@@ -19,6 +19,13 @@ namespace Password
             var password = GeneratePassword(new Option[] { new Option(1, 4), new Option(2, 2) });
             Assert.AreEqual(2, CountCharacters(password,'A','Z'));
         }
+
+        [TestMethod]
+        public void TestForNumbers()
+        {
+            var password = GeneratePassword(new Option[] { new Option(1, 4), new Option(2, 2), new Option(3,3)} );
+            Assert.AreEqual(3, CountCharacters(password, (char)0, (char)9));
+        }
         struct Option
         {
             public int optionNumber;
@@ -39,6 +46,9 @@ namespace Password
                    password += GenerateLettersAndNumbers(options[i].length, 'a', 'z' + 1);
                 if (options[i].optionNumber == 2)
                     password += GenerateLettersAndNumbers(options[i].length, 'A', 'Z' + 1);
+                if (options[i].optionNumber == 3)
+                    password += GenerateLettersAndNumbers(options[i].length, 0, 10);
+
             }
             return password;
         }
