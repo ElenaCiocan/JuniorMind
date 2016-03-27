@@ -9,7 +9,7 @@ namespace Password
         [TestMethod]
         public void TestForSmallLetters()
         {
-            var password= GeneratePassword(new Option[] { new Option(1, 4,), new Option(2, 2)});
+            var password= GeneratePassword(new Option[] { new Option(1, 4), new Option(2, 2)});
             Assert.AreEqual(4, CountCharacters(password,'a','z'));
         }
 
@@ -33,12 +33,6 @@ namespace Password
             string symbols = "!#$%&()*,+-./:;<=>?@[\\]^_'`{|}~";
             var password = GeneratePassword(new Option[] { new Option(1, 4), new Option(2, 2), new Option(3, 3), new Option(4,5) });
             Assert.AreEqual(5, CountSymbols(password,symbols));
-        }
-
-        [TestMethod]
-        public void TestforEliminateCharacters()
-        {
-            Assert.AreEqual
         }
 
         struct Option
@@ -71,7 +65,7 @@ namespace Password
                 if (options[i].optionNumber == 4)
                     password += GenerateSymbols(options[i].length, symbols,options[i].eliminateAmbiguousCharacters);
             }
-            return password;
+            return ShufflePassword(password);
         }
 
         string GenerateLettersAndNumbers(int number, int start, int end, bool eliminateCharacters, string charactersToEliminate = "l1Io0O")
@@ -81,7 +75,13 @@ namespace Password
             char[] eliminate = charactersToEliminate.ToCharArray(0, charactersToEliminate.Length);
             if(eliminateCharacters)
             {
-                result = NewMethod(number, start, end, random, result, eliminate);
+                for (int i = 0; i < number; i++)
+                {
+                    char character = (char)random.Next(start, end);
+                    while(Array.IndexOf(eliminate,character)>=0)
+                         character = (char)random.Next(start, end);
+                    result += character.ToString();
+                }
             }
             else
             {
@@ -91,19 +91,6 @@ namespace Password
                     result += character.ToString();
                 }
             }
-            return result;
-        }
-
-        private static string NewMethod(int number, int start, int end, Random random, string result, char[] eliminate)
-        {
-            for (int i = 0; i < number; i++)
-            {
-                char character = (char)random.Next(start, end);
-                while (Array.IndexOf(eliminate, character) >= 0)
-                    character = (char)random.Next(start, end);
-                result += character.ToString();
-            }
-
             return result;
         }
 
@@ -149,6 +136,22 @@ namespace Password
                 if (Array.IndexOf(symbol, password[i]) >= 0)
                     count++;
             return count;
+        }
+
+         string ShufflePassword(string password)
+        {
+            Random rand = new Random();
+            char[] finalPassword = password.ToCharArray();
+            int contor = finalPassword.Length;
+            while (contor > 1)
+            {
+                contor--;
+                int k = rand.Next(contor + 1);
+                var value = finalPassword[k];
+                finalPassword[k] = finalPassword[contor];
+                finalPassword[contor] = value;
+            }
+            return new string(finalPassword);
         }
     }
 }
