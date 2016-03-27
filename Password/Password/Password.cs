@@ -9,10 +9,22 @@ namespace Password
         [TestMethod]
         public void TestForSmallLetters()
         {
-            var password= GenerateLettersAndNumbers(3, 'a', 'z' + 1);
-            Assert.AreEqual(3, CountSmallLetters(password));
+            var password= GeneratePassword(6,2);
+            Assert.AreEqual(4, CountCharacters(password,'a','z'));
         }
 
+        [TestMethod]
+        public void TestForCapitalLetters()
+        {
+            var password = GeneratePassword(6, 2);
+            Assert.AreEqual(2, CountCharacters(password,'A','Z'));
+        }
+
+        string GeneratePassword(int length, int noOfCapitalLetters = 0)
+        {
+            string password = GenerateLettersAndNumbers(length - noOfCapitalLetters, 'a', 'z' + 1) + GenerateLettersAndNumbers(noOfCapitalLetters, 'A', 'Z' + 1);
+            return password;
+        }
         string GenerateLettersAndNumbers(int number, int start, int end)
         {
             string result = null;
@@ -25,12 +37,12 @@ namespace Password
             return result;
         }
 
-        int CountSmallLetters(string password)
+        int CountCharacters(string password, char first, char last)
         {
             int count = 0;
             for (int i = 0; i < password.Length; i++)
             {
-                if (password[i] >= 'a' && password[i] <= 'z')
+                if (password[i] >= first && password[i] <= last)
                     count++;
             }
             return count;
