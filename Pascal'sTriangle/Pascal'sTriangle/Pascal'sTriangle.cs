@@ -17,13 +17,18 @@ namespace Pascal_sTriangle
             int[] row = new int[rowNumber];
             int[] previousRow = new int[rowNumber];
             row[0] = 1;
-            row[rowNumber-1] = 1;
+            row[rowNumber - 1] = 1;
             if (rowNumber == 1)
                 return new int[] { 1 };
             previousRow = CalculateRowOfPascalTriangle(rowNumber - 1);
+            NewMethod(rowNumber, row, previousRow);
+            return row;
+        }
+
+        private static void NewMethod(int rowNumber, int[] row, int[] previousRow)
+        {
             for (int j = 1; j < rowNumber - 1; j++)
                 row[j] = previousRow[j - 1] + previousRow[j];
-            return row;
         }
     }
 }
