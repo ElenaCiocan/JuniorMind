@@ -7,8 +7,23 @@ namespace Pascal_sTriangle
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestForThirdRow()
         {
+            CollectionAssert.AreEqual(new int[] { 1, 2, 1 }, CalculateRowOfPascalTriangle(3));
+        }
+
+        int[] CalculateRowOfPascalTriangle( int rowNumber)
+        {
+            int[] row = new int[rowNumber];
+            int[] previousRow = new int[rowNumber];
+            row[0] = 1;
+            row[rowNumber-1] = 1;
+            if (rowNumber == 1)
+                return new int[] { 1 };
+            previousRow = CalculateRowOfPascalTriangle(rowNumber - 1);
+            for (int j = 1; j < rowNumber - 1; j++)
+                row[j] = previousRow[j - 1] + previousRow[j];
+            return row;
         }
     }
 }
