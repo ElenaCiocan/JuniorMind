@@ -9,13 +9,34 @@ namespace Calculator
         [TestMethod]
         public void TestForSplit()
         {
-            CollectionAssert.AreEqual(new string[] { "a", "b", "c" }, CalculateOperations("a b c"));
+            CollectionAssert.AreEqual(new string[] { "a", "b", "c" }, SplitExpresion("a b c"));
         }
 
-        string[] CalculateOperations( string input)
+        [TestMethod]
+        public void TestForSimpleMultiplication()
         {
-            string[] splitedInput = input.Split(' ');
-            return splitedInput; 
+            int index = 0;
+            Assert.AreEqual(24, CalculateOperations("* * 2 3 4", ref index));
+        }
+
+        double CalculateOperations(string input, ref int index)
+        {
+            double number;
+            string[] splitedInput = SplitExpresion(input);
+            string element = splitedInput[index++];
+            if (double.TryParse(element, out number))
+                return number;
+            else
+            {
+                if (element == "*") ;
+                return CalculateOperations(input, ref index) * CalculateOperations(input, ref index);
+            }
+
+        }
+
+        private static string[] SplitExpresion(string input)
+        {
+            return input.Split(' ');
         }
     }
 }
