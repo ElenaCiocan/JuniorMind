@@ -4,11 +4,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Calculator
 {
     [TestClass]
-    public class UnitTest1
+    public class Calculator
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestForSplit()
         {
+            CollectionAssert.AreEqual(new string[] { "a", "b", "c" }, CalculateOperations("a b c"));
+        }
+
+        string[] CalculateOperations( string input)
+        {
+            string[] splitedInput = input.Split(' ');
+            return splitedInput; 
         }
     }
 }
