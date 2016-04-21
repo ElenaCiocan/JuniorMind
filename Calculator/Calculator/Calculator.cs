@@ -6,50 +6,54 @@ namespace Calculator
     [TestClass]
     public class Calculator
     {
-        [TestMethod]
-        public void TestForSplit()
-        {
-            CollectionAssert.AreEqual(new string[] { "a", "b", "c" }, SplitExpresion("a b c"));
-        }
-
+       
         [TestMethod]
         public void TestForSimpleMultiplication()
         {
-            int index = 0;
-            Assert.AreEqual(24, CalculateOperations("* * 2 3 4", ref index));
+            
+            Assert.AreEqual(24, CalculateOperations("* * 2 3 4"));
         }
 
         [TestMethod]
         public void TestForMultipleOperations()
         {
-            int index = 0;
-            Assert.AreEqual(1549.41, CalculateOperations("+ / * + 56 45 46 3 - 1 0.25", ref index), 1e-2);
+            Assert.AreEqual(1549.41, CalculateOperations("+ / * + 56 45 46 3 - 1 0,25"), 1e-2);
         }
 
-        double CalculateOperations(string input, ref int index)
+        double CalculateOperations(string input)
+        {
+            string[] splitedInput = input.Split(' ');
+            int index = 0;
+            return Calculate(splitedInput, ref index);
+           
+        }
+
+        double Calculate(string[] elements, ref int index)
         {
             double number;
-            string[] splitedInput = SplitExpresion(input);
-            string element = splitedInput[index++];
+            string element = elements[index++];
             if (double.TryParse(element, out number))
                 return number;
-            else
-            {
-                if (element.Equals("*"))
-                    return CalculateOperations(input, ref index) * CalculateOperations(input, ref index);
-                if (element.Equals("/"))
-                    return CalculateOperations(input, ref index) / CalculateOperations(input, ref index);
-                if (element.Equals("+"))
-                    return CalculateOperations(input, ref index) + CalculateOperations(input, ref index);
-                if (element.Equals("-"))
-                    return CalculateOperations(input, ref index) - CalculateOperations(input, ref index);
-            }
-            return 0;
+             return ExecuteOperations(element, Calculate(elements, ref index), Calculate(elements, ref index));
         }
-        private static string[] SplitExpresion(string input)
+
+        private double ExecuteOperations(string element,double first, double second)
         {
-            return input.Split(' ');
+            switch (element)
+            {
+                case "*":
+                    return first * second; 
+                case "/":
+                    return first / second;
+                case "+":
+                    return first + second;
+                case "-":
+                    return first - second;
+                default:
+                    return 0;
+            }
         }
+
     }
 }
 
