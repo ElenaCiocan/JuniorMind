@@ -14,8 +14,8 @@ namespace Classbook
         public void TestForArithmeticalMean()
         {
             var grades = new int[]{9,8,6};
-            var mathematics = new SchoolMatter(grades);
-            Assert.AreEqual(7.66, mathematics.CalculateArithmeticalMean(grades), 1e-2);
+            var mathematics = new SchoolMatter(grades,"Matematica" );
+            Assert.AreEqual(7.66, mathematics.CalculateArithmeticalMean(), 1e-2);
         }
     }
 }
