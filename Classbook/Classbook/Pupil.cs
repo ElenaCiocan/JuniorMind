@@ -22,7 +22,7 @@ namespace Classbook
             return String.Compare(name, pupil.name);
         }
 
-         public double CalculateFinalGrade(Pupil pupil)
+         public double CalculateFinalGrade()
         {
             double grade=0;
             for (int i = 0; i< schoolmatters.Length; i++)

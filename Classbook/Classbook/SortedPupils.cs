@@ -55,10 +55,10 @@ namespace Classbook
 
             while (i <= j)
             {
-                while (pupils[i].CalculateFinalGrade(pupils[i]) < pupils[i].CalculateFinalGrade(pivot)) 
+                while (pupils[i].CalculateFinalGrade() > pivot.CalculateFinalGrade()) 
                     i++;
 
-                while (pupils[i].CalculateFinalGrade(pupils[i]) > pupils[i].CalculateFinalGrade(pivot))
+                while (pupils[j].CalculateFinalGrade() < pivot.CalculateFinalGrade())
                     j--;
 
                 if (i <= j)

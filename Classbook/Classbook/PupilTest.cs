@@ -19,7 +19,7 @@ namespace Classbook
         public void TestForFinalGrade()
         {
             var elena = new Pupil("Elena Ciocan", new[] { new SchoolMatter(new int[] { 10, 9 }, "Matematica"), new SchoolMatter(new int[] { 8, 8 }, "Romana") });
-            Assert.AreEqual(8.75, elena.CalculateFinalGrade(elena));
+            Assert.AreEqual(8.75, elena.CalculateFinalGrade());
         }
     }
 }
