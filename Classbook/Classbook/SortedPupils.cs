@@ -46,5 +46,37 @@ namespace Classbook
             return pupils;
 
         }
+
+        public Pupil[] SortByFinalGrade(Pupil[] pupils, int start, int end)
+        {
+            int i = start;
+            int j = end;
+            Pupil pivot = pupils[(start + end) / 2], auxiliar;
+
+            while (i <= j)
+            {
+                while (pupils[i].CalculateFinalGrade(pupils[i]) < pupils[i].CalculateFinalGrade(pivot)) 
+                    i++;
+
+                while (pupils[i].CalculateFinalGrade(pupils[i]) > pupils[i].CalculateFinalGrade(pivot))
+                    j--;
+
+                if (i <= j)
+                {
+                    auxiliar = pupils[i];
+                    pupils[i] = pupils[j];
+                    pupils[j] = auxiliar;
+                    i++;
+                    j--;
+                }
+                if (start < j)
+                    SortByFinalGrade(pupils, start, j);
+                if (i < end)
+                    SortByFinalGrade(pupils, i, end);
+            }
+
+            return pupils;
+
+        }
     }
 }
