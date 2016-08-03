@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace Classbook
 {
-    class SortedPupils
+    class SortedPupils : IEnumerable<Pupil>
     {
         private Pupil[] pupils;
+        private string option;
 
-        public SortedPupils(Pupil[] pupils)
+        public SortedPupils(Pupil[] pupils, string option)
         {
             this.pupils = pupils;
+            this.option = option;
         }
 
-        public Pupil[] SortAlphabetically(Pupil[] pupils, int start, int end)
+        private void SortAlphabetically(int start, int end)
         {
             int i = start;
             int j = end;
@@ -38,45 +41,43 @@ namespace Classbook
                     j--;
                 }
                 if (start < j)
-                    SortAlphabetically(pupils, start, j);
+                    SortAlphabetically(start, j);
                 if (i < end)
-                    SortAlphabetically(pupils, i, end);
+                    SortAlphabetically(i, end);
             }
-
-            return pupils;
 
         }
 
-        public Pupil[] SortByFinalGrade(Pupil[] pupils, int start, int end)
+        private void SortByFinalGrade()
         {
-            int i = start;
-            int j = end;
-            Pupil pivot = pupils[(start + end) / 2], auxiliar;
-
-            while (i <= j)
+            for (int i = pupils.Length - 1; i > 0; i--)
             {
-                while (pupils[i].CalculateFinalGrade() > pivot.CalculateFinalGrade()) 
-                    i++;
-
-                while (pupils[j].CalculateFinalGrade() < pivot.CalculateFinalGrade())
-                    j--;
-
-                if (i <= j)
+                for (int j = 0; j <= i - 1; j++)
                 {
-                    auxiliar = pupils[i];
-                    pupils[i] = pupils[j];
-                    pupils[j] = auxiliar;
-                    i++;
-                    j--;
+                    if (pupils[j].CalculateFinalGrade() < pupils[j + 1].CalculateFinalGrade())
+                    {
+                        Pupil highValue = pupils[j];
+                        pupils[j] = pupils[j + 1];
+                        pupils[j + 1] = highValue;
+                    }
                 }
-                if (start < j)
-                    SortByFinalGrade(pupils, start, j);
-                if (i < end)
-                    SortByFinalGrade(pupils, i, end);
             }
+        }
 
-            return pupils;
+        public IEnumerator<Pupil> GetEnumerator()
+        {
+            if (option.CompareTo("Alphabetically") == 0)
+                SortAlphabetically(0, pupils.Length-1);
+            else
+                if (option.CompareTo("ByGrade") == 0)
+                SortByFinalGrade();
+            foreach (var p in pupils)
+                yield return p;
+        }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
