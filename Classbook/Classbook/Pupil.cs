@@ -22,12 +22,13 @@ namespace Classbook
             return String.Compare(name, pupil.name);
         }
 
-         public double CalculateFinalGrade()
+        public double CalculateFinalGrade()
         {
-            double grade=0;
-            for (int i = 0; i< schoolmatters.Length; i++)
+            double grade = 0;
+            for (int i = 0; i < schoolmatters.Length; i++)
                 grade += schoolmatters[i].CalculateArithmeticalMean();
-            return grade / schoolmatters.Length;
+            double final = Math.Round((double)grade / schoolmatters.Length, 2);
+            return final;
         }
 
         public override string ToString()

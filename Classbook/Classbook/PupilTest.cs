@@ -18,8 +18,8 @@ namespace Classbook
         [TestMethod]
         public void TestForFinalGrade()
         {
-            var elena = new Pupil("Elena Ciocan", new[] { new SchoolMatter(new int[] { 10, 9 }, "Matematica"), new SchoolMatter(new int[] { 8, 8 }, "Romana") });
-            Assert.AreEqual(8.75, elena.CalculateFinalGrade());
+            var elena = new Pupil("Elena Ciocan", new[] { new SchoolMatter(new int[] { 7,2,6, 7 }, "Matematica"), new SchoolMatter(new int[] { 10,7, 8 }, "Romana") });
+            Assert.AreEqual(6.92, elena.CalculateFinalGrade());
         }
     }
 }

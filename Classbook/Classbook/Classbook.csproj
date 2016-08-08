@@ -74,6 +74,8 @@
     <Compile Include="Pupil.cs" />
     <Compile Include="SchoolMatter.cs" />
     <Compile Include="SchoolMatterTest.cs" />
+    <Compile Include="SelectedPupils.cs" />
+    <Compile Include="SelectedPupilsTest.cs" />
     <Compile Include="SortedPupils.cs" />
     <Compile Include="SortedPupilsTest.cs" />
   </ItemGroup>
