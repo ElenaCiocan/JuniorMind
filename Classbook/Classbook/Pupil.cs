@@ -30,5 +30,9 @@ namespace Classbook
             return grade / schoolmatters.Length;
         }
 
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

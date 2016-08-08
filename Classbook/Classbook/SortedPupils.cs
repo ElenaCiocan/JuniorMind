@@ -18,59 +18,37 @@ namespace Classbook
             this.option = option;
         }
 
-        private void SortAlphabetically(int start, int end)
-        {
-            int i = start;
-            int j = end;
-            Pupil pivot = pupils[(start + end) / 2], auxiliar;
-
-            while (i <= j)
-            {
-                while (pupils[i].CompareByName(pivot) == -1)
-                    i++;
-
-                while (pupils[j].CompareByName(pivot) == 1)
-                    j--;
-
-                if (i <= j)
-                {
-                    auxiliar = pupils[i];
-                    pupils[i] = pupils[j];
-                    pupils[j] = auxiliar;
-                    i++;
-                    j--;
-                }
-                if (start < j)
-                    SortAlphabetically(start, j);
-                if (i < end)
-                    SortAlphabetically(i, end);
-            }
-
-        }
-
-        private void SortByFinalGrade()
+        private void SortThePupils()
         {
             for (int i = pupils.Length - 1; i > 0; i--)
             {
                 for (int j = 0; j <= i - 1; j++)
                 {
-                    if (pupils[j].CalculateFinalGrade() < pupils[j + 1].CalculateFinalGrade())
+                    if (option.CompareTo("Alphabetically") == 0)
                     {
-                        Pupil highValue = pupils[j];
-                        pupils[j] = pupils[j + 1];
-                        pupils[j + 1] = highValue;
+                        if (pupils[j].CompareByName(pupils[j + 1]) == 1)
+                            Swap(ref pupils[j], ref pupils[j + 1]);
+                    }
+                    else
+                    {
+                        if (option.CompareTo("ByGrade") == 0)
+                            if (pupils[j].CalculateFinalGrade() < pupils[j + 1].CalculateFinalGrade())
+                                Swap(ref pupils[j], ref pupils[j + 1]);
                     }
                 }
             }
         }
 
+        private void Swap(ref Pupil firstPupil, ref Pupil secondPupil)
+        {
+            Pupil highValue = firstPupil;
+            firstPupil = secondPupil;
+            secondPupil = highValue;
+        }
+
         public IEnumerator<Pupil> GetEnumerator()
         {
-            if (option.CompareTo("Alphabetically") == 0)
-                SortAlphabetically(0, pupils.Length-1);
-            else
-                if (option.CompareTo("ByGrade") == 0)
-                SortByFinalGrade();
+                SortThePupils();
             foreach (var p in pupils)
                 yield return p;
         }
