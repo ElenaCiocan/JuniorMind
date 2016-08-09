@@ -50,13 +50,16 @@ namespace List
 
         public void Clear()
         {
-           Array.Resize(ref numbers, 0);
+            Array.Resize(ref numbers, 0);
             count = 0;  
         }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < count; i++)
+                if (numbers[i].Equals(item))
+                    return true;
+            return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)

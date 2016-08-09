@@ -33,5 +33,15 @@ namespace List
             listOfNumbers.Clear();
             Assert.Empty(listOfNumbers);
         }
+
+        [Fact]
+        public void TestForContains()
+        {
+            var listOfNumbers = new List<int>();
+            listOfNumbers.Add(25);
+            listOfNumbers.Add(8);
+
+            Assert.Equal(true, listOfNumbers.Contains(25));
+        }
     }
 }
