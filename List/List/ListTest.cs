@@ -61,5 +61,13 @@ namespace List
 
             Assert.Equal(2, listOfNumbers.IndexOf(3));
         }
+
+        [Fact]
+        public void TestForInsert()
+        {
+            var listOfNumbers = new List<int> { 1, 2, 3, 4, 6, 7, 8, 9 };
+            listOfNumbers.Insert(4, 5);
+            Assert.Equal(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 },listOfNumbers );
+        }
     }
 }

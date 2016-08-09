@@ -86,7 +86,11 @@ namespace List
 
         public void Insert(int index, T item)
         {
-            throw new NotImplementedException();
+            Array.Resize(ref numbers, numbers.Length + 1);
+            for (int i = count; i > index; i--)
+                numbers[i] = numbers[i - 1];
+            numbers[index] = item;
+          
         }
 
         public bool Remove(T item)
