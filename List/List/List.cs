@@ -94,7 +94,13 @@ namespace List
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            int index=IndexOf(item);
+            if (Contains(item))
+            {
+                RemoveAt(index);
+                return true;
+            }
+            return false;
         }
 
         public void RemoveAt(int index)
