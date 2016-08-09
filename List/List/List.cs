@@ -90,7 +90,6 @@ namespace List
             for (int i = count; i > index; i--)
                 numbers[i] = numbers[i - 1];
             numbers[index] = item;
-          
         }
 
         public bool Remove(T item)
@@ -100,7 +99,9 @@ namespace List
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            for (int i = index; i < count - 1; i++)
+                numbers[i] = numbers[i + 1];
+            Array.Resize(ref numbers, numbers.Length-1);          
         }
 
         IEnumerator IEnumerable.GetEnumerator()

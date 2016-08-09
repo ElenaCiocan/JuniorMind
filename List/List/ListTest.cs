@@ -69,5 +69,13 @@ namespace List
             listOfNumbers.Insert(4, 5);
             Assert.Equal(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 },listOfNumbers );
         }
+
+        [Fact]
+        public void TestForRemoveAt()
+        {
+            var listOfNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            listOfNumbers.RemoveAt(4);
+            Assert.Equal(new[] { 1, 2, 3, 4, 6, 7, 8, 9 }, listOfNumbers);
+        }
     }
 }
