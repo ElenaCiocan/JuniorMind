@@ -9,7 +9,7 @@ namespace List
 {
     class List<T> : IList<T>
     {
-        T[] numbers = new T[2];
+        T[] numbers = new T[0] ;
         int count = 0;
         
         public T this[int index]
@@ -50,7 +50,8 @@ namespace List
 
         public void Clear()
         {
-            throw new NotImplementedException();
+           Array.Resize(ref numbers, 0);
+            count = 0;  
         }
 
         public bool Contains(T item)
