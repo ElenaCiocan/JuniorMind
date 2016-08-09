@@ -67,7 +67,6 @@ namespace List
             int index = arrayIndex;
             for (int i = 0; i < count; i++)
                 array[index++] = numbers[i];
-
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -78,7 +77,11 @@ namespace List
 
         public int IndexOf(T item)
         {
-            throw new NotImplementedException();
+            int i;
+            for ( i = 0; i < count; i++)
+                if (numbers[i].Equals(item))
+                    break;
+             return i;
         }
 
         public void Insert(int index, T item)

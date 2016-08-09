@@ -53,5 +53,13 @@ namespace List
 
             Assert.Equal(new int[] {10,9,1,2,3,4,5,6,7,8 }, numbers);
         }
+
+        [Fact]
+        public void TestForIndexOf()
+        {
+            var listOfNumbers = new List<int> { 1, 2, 3, 4, 5,7,8,9};
+
+            Assert.Equal(2, listOfNumbers.IndexOf(3));
+        }
     }
 }
