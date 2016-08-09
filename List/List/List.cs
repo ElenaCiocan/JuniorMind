@@ -64,7 +64,10 @@ namespace List
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            int index = arrayIndex;
+            for (int i = 0; i < count; i++)
+                array[index++] = numbers[i];
+
         }
 
         public IEnumerator<T> GetEnumerator()
