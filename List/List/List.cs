@@ -86,6 +86,11 @@ namespace List
 
         public void Insert(int index, T item)
         {
+            if (index < 0 || index > count - 1)
+                throw new ArgumentOutOfRangeException();
+            if (item == null)
+                throw new NullReferenceException();
+            
             Resize();
             for (int i = count; i > index; i--)
                 numbers[i] = numbers[i - 1];

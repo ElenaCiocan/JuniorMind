@@ -94,5 +94,14 @@ namespace List
 
             Assert.Throws<ArgumentOutOfRangeException>(()=> listOfNumbers.RemoveAt(3));
         }
+
+        [Fact]
+        public void TestForInsertException()
+        {
+            var listOfNumbers = new List<int> { 1, 2, 3 };
+            var n = (int[])null;
+            Assert.Throws<ArgumentOutOfRangeException>(() => listOfNumbers.Insert(3,2));
+            Assert.Throws<NullReferenceException>(() => listOfNumbers.Insert(2,n[0]));
+        }
     }
 }
