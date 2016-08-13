@@ -9,9 +9,9 @@ namespace List
 {
     class List<T> : IList<T>
     {
-        T[] numbers = new T[0] ;
+        T[] numbers = new T[0];
         int count = 0;
-        
+
         public T this[int index]
         {
             get
@@ -43,7 +43,7 @@ namespace List
 
         public void Add(T item)
         {
-            Array.Resize(ref numbers, numbers.Length + 1);
+            Resize();
             numbers[count] = item;
             count++;
         }
@@ -51,7 +51,7 @@ namespace List
         public void Clear()
         {
             Array.Resize(ref numbers, 0);
-            count = 0;  
+            count = 0;
         }
 
         public bool Contains(T item)
@@ -78,23 +78,24 @@ namespace List
         public int IndexOf(T item)
         {
             int i;
-            for ( i = 0; i < count; i++)
+            for (i = 0; i < count; i++)
                 if (numbers[i].Equals(item))
                     break;
-             return i;
+            return i;
         }
 
         public void Insert(int index, T item)
         {
-            Array.Resize(ref numbers, numbers.Length + 1);
+            Resize();
             for (int i = count; i > index; i--)
                 numbers[i] = numbers[i - 1];
             numbers[index] = item;
+            Array.Resize(ref numbers, count + 1);
         }
 
         public bool Remove(T item)
         {
-            int index=IndexOf(item);
+            int index = IndexOf(item);
             if (Contains(item))
             {
                 RemoveAt(index);
@@ -105,14 +106,24 @@ namespace List
 
         public void RemoveAt(int index)
         {
+            if (index < 0 || index > count - 1) 
+                throw new ArgumentOutOfRangeException();
             for (int i = index; i < count - 1; i++)
                 numbers[i] = numbers[i + 1];
-            Array.Resize(ref numbers, numbers.Length-1);          
+            Array.Resize(ref numbers, count-1);          
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+        
+        public void Resize()
+        {
+            if (numbers.Length == 0)
+                Array.Resize(ref numbers, 1);
+            if (numbers.Length == count)
+                Array.Resize(ref numbers, numbers.Length * 2);
         }
     }
 }

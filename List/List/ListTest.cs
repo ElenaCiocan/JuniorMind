@@ -10,8 +10,8 @@ namespace List
         {
             var listOfNumbers = new List<int>();
             listOfNumbers.Add(25);
-
-            Assert.Equal(new[] { 25 }, listOfNumbers);
+             Assert.Equal(new[] { 25 }, listOfNumbers);
+          
         }
         
         [Fact]
@@ -75,7 +75,7 @@ namespace List
         {
             var listOfNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             listOfNumbers.RemoveAt(4);
-            Assert.Equal(new[] { 1, 2, 3, 4, 6, 7, 8, 9 }, listOfNumbers);
+            Assert.Equal(new List<int> { 1, 2, 3, 4, 6, 7, 8, 9 }, listOfNumbers);
         }
 
         [Fact]
@@ -85,6 +85,14 @@ namespace List
             
             Assert.False(listOfNumbers.Remove(10));
             Assert.True(listOfNumbers.Remove(5));
+        }
+
+        [Fact]
+        public void TestForRemoveAtException()
+        {
+            var listOfNumbers = new List<int> { 1, 2, 3 };
+
+            Assert.Throws<ArgumentOutOfRangeException>(()=> listOfNumbers.RemoveAt(3));
         }
     }
 }
