@@ -36,6 +36,17 @@ namespace LinkedList
             noOfNodes++;
         }
 
+        public void AddAtTheBegining(T value)
+        {
+            Node<T> node = new Node<T>(value);
+            node.Next = sentinel.Next;
+            node.Previous = sentinel;
+            sentinel.Next = node;
+            sentinel.Next.Previous = node;          
+
+            noOfNodes++;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> node = sentinel.Next;
