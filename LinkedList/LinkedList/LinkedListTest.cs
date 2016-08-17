@@ -30,6 +30,14 @@ namespace LinkedList
             Assert.Equal(2, list.Count());
         }
 
-       
+        [Fact]
+        public void TestForRemoveLast()
+        {
+            var list = new LinkedList<int> { 1, 2, 3 };
+            list.RemoveLast();
+            Assert.Equal(new[] { 1, 2 }, list);
+            Assert.Equal(2, list.Count());
+        }
+
     }
 }

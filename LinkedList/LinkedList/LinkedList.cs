@@ -58,6 +58,13 @@ namespace LinkedList
             noOfNodes--;
         }
 
+        public void RemoveLast()
+        {
+            sentinel.Previous = sentinel.Previous.Previous;
+            sentinel.Previous.Next = sentinel;
+            noOfNodes--;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> node = sentinel.Next;
