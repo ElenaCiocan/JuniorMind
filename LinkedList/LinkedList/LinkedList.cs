@@ -94,6 +94,12 @@ namespace LinkedList
 
         public void CopyTo(T[] array, int index)
         {
+            if (array == null)
+                throw new ArgumentNullException();
+            if (index < 0 || index > array.Length - 1)
+                throw new ArgumentOutOfRangeException();
+            if (noOfNodes > (array.Length - index))
+                throw new ArgumentException();
             Node<T> current = sentinel.Next;
             while (current != sentinel && index < array.Length)
             {
