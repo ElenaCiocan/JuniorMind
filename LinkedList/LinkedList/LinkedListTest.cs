@@ -83,5 +83,13 @@ namespace LinkedList
 
         }
 
+        [Fact]
+        public void TestForRemoveLastException()
+        {
+            var list = new LinkedList<int> { };
+            Assert.Throws<InvalidOperationException>(() => list.RemoveLast());
+
+        }
+
     }
 }

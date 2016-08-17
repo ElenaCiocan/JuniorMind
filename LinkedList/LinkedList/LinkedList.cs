@@ -62,6 +62,8 @@ namespace LinkedList
 
         public void RemoveLast()
         {
+            if (sentinel.Previous == sentinel)
+                throw new InvalidOperationException();
             sentinel.Previous = sentinel.Previous.Previous;
             sentinel.Previous.Next = sentinel;
             noOfNodes--;
