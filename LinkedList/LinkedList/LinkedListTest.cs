@@ -48,5 +48,12 @@ namespace LinkedList
             Assert.Equal(4, list.Count());
         }
 
+        [Fact]
+        public void TestForContains()
+        {
+            var list = new LinkedList<int> { 1, 2, 3, 4, 5 };
+            Assert.True(list.Contains(3));
+        }
+
     }
 }

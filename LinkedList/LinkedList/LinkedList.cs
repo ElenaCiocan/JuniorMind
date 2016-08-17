@@ -80,6 +80,18 @@ namespace LinkedList
             }
         }
 
+        public bool Contains(T value)
+        {
+            Node<T> current = sentinel.Next;
+            while (!current.Equals(sentinel))
+            {
+                if (current.Data.Equals(value))
+                    return true;
+                current = current.Next;
+            }
+            return false;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> node = sentinel.Next;
