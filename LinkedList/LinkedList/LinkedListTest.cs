@@ -39,5 +39,14 @@ namespace LinkedList
             Assert.Equal(2, list.Count());
         }
 
+        [Fact]
+        public void TestForRemove()
+        {
+            var list = new LinkedList<int> { 1, 2, 3, 4, 5 };
+            list.Remove(3);
+            Assert.Equal(new[] { 1, 2, 4, 5 }, list);
+            Assert.Equal(4, list.Count());
+        }
+
     }
 }

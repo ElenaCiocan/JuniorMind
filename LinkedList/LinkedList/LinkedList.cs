@@ -65,6 +65,21 @@ namespace LinkedList
             noOfNodes--;
         }
 
+        public void Remove(T item)
+        {
+            Node<T> current = sentinel.Next;
+            while(!current.Equals(sentinel))
+            {
+                if(current.Data.Equals(item))
+                {
+                    current.Previous.Next = current.Next;
+                    current.Next.Previous = current.Previous;
+                    noOfNodes--;
+                }
+                current = current.Next;
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> node = sentinel.Next;
