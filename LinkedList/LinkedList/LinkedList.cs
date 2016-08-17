@@ -53,6 +53,8 @@ namespace LinkedList
 
         public void RemoveFirst()
         {
+            if (sentinel.Next == sentinel)
+                throw new InvalidOperationException();
             sentinel.Next = sentinel.Next.Next;
             sentinel.Next.Previous = sentinel;
             noOfNodes--;

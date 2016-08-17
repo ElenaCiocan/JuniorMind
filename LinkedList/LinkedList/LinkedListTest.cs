@@ -69,12 +69,19 @@ namespace LinkedList
         {
             var list = new LinkedList<int> { 1, 2, 3, 4, 5 };
             var number = (int[])null;
-            //   list.CopyTo(numbers, 2);
             var numbers = new int[] { 1, 2, 3, 4 };
             Assert.Throws<ArgumentNullException>(() => list.CopyTo(number, 2));
             Assert.Throws<ArgumentOutOfRangeException>(() => list.CopyTo(numbers, 5));
             Assert.Throws<ArgumentException>(() => list.CopyTo(numbers, 2));
+        }
+
+        [Fact]
+        public void TestForRemoveFirstException()
+        {
+            var list = new LinkedList<int> { };
+            Assert.Throws<InvalidOperationException>(() => list.RemoveFirst());
 
         }
+
     }
 }
