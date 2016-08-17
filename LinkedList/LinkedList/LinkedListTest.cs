@@ -21,5 +21,15 @@ namespace LinkedList
             Assert.Equal(new[] { 0, 1, 2 }, list);
         }
 
+        [Fact]
+        public void TestForRemoveFirst()
+        {
+            var list = new LinkedList<int> { 1, 2, 3 };
+            list.RemoveFirst();
+            Assert.Equal(new[] { 2, 3 }, list);
+            Assert.Equal(2, list.Count());
+        }
+
+       
     }
 }

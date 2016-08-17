@@ -19,6 +19,10 @@ namespace LinkedList
             sentinel.Previous = sentinel;
             noOfNodes = 0;
         }
+        public int Count()
+        {          
+            return noOfNodes; 
+        }
 
         public void Add(T value)
         {
@@ -45,6 +49,13 @@ namespace LinkedList
             sentinel.Next.Previous = node;          
 
             noOfNodes++;
+        }
+
+        public void RemoveFirst()
+        {
+            sentinel.Next = sentinel.Next.Next;
+            sentinel.Next.Previous = sentinel;
+            noOfNodes--;
         }
 
         public IEnumerator<T> GetEnumerator()
