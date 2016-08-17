@@ -55,5 +55,13 @@ namespace LinkedList
             Assert.True(list.Contains(3));
         }
 
+        [Fact]
+        public void TestForCopyTO()
+        {
+            var list = new LinkedList<int> { 1, 2 };
+            var numbers = new int[] { 1, 2, 3, 4 };
+            list.CopyTo(numbers, 2);
+            Assert.Equal(new[] { 1, 2, 1, 2 }, numbers);
+        }
     }
 }

@@ -92,6 +92,16 @@ namespace LinkedList
             return false;
         }
 
+        public void CopyTo(T[] array, int index)
+        {
+            Node<T> current = sentinel.Next;
+            while (current != sentinel && index < array.Length)
+            {
+                array.SetValue(current.Data, index++);
+                current = current.Next;
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T> node = sentinel.Next;
